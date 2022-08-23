@@ -80,12 +80,12 @@ export default function Home () {
               nextArrow={<MdOutlineArrowForwardIos />}
               prevArrow={<MdOutlineArrowBackIosNew />}
             >
-              <Country imgUrl='./paises/guatemala.png' />
-              <Country imgUrl='./paises/el-salvador.png' />
-              <Country imgUrl='./paises/honduras.png' />
-              <Country imgUrl='./paises/nicaragua.png' />
-              <Country imgUrl='./paises/costa-rica.png' />
-              <Country imgUrl='./paises/panama.png' />
+              <Country link='/country/guatemala' imgUrl='./paises/guatemala.png' />
+              <Country link='/country/elsalvador' imgUrl='./paises/el-salvador.png' />
+              <Country link='/country/honduras' imgUrl='./paises/honduras.png' />
+              <Country link='/country/nicaragua' imgUrl='./paises/nicaragua.png' />
+              <Country link='/country/costa-rica' imgUrl='./paises/costa-rica.png' />
+              <Country link='/country/panama' imgUrl='./paises/panama.png' />
             </Slider>
           </div>
         </CardMain>
