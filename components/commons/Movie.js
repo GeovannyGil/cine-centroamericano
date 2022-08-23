@@ -10,7 +10,7 @@ export const Movie = ({ title, imageUrl }) => {
       </div>
       <div className='cc__contain-title-movie'>
         <p>{title}</p>
-        <Link href='/'><a className='cc__btn cc__btn-primary-color'>▶</a></Link>
+        <Link href='/pelicula/lavidadegeovannygil'><a className='cc__btn cc__btn-primary-color'>▶</a></Link>
       </div>
     </div>
     // </Link>

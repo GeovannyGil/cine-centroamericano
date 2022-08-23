@@ -1,5 +1,5 @@
 // import Head from 'next/head'
-import { CardMain } from '../components/commons/CardsMain'
+import { CardMain } from '../components/commons/CardMain'
 import { Movie } from '../components/commons/Movie'
 import Layout from '../components/Layout'
 import MainContent from '../components/MainContent'

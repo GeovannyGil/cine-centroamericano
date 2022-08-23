@@ -19,7 +19,7 @@ const filters = [
 ]
 
 const CategoryCountry = () => {
-  const [filter, setFilter] = useState('all')
+  const [filter, setFilter] = useState('todos')
   const handleSetFilter = (filter) => {
     setFilter(filter)
   }
