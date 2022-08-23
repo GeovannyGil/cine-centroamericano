@@ -1,42 +1,116 @@
 // import Head from 'next/head'
-import { CardMovies } from '../components/commons/CardsMovies'
+import { CardMain } from '../components/commons/CardsMain'
 import { Movie } from '../components/commons/Movie'
-import Header from '../components/Header'
+import Layout from '../components/Layout'
 import MainContent from '../components/MainContent'
-import Glider from 'react-glider'
 import { MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from 'react-icons/md'
-import 'glider-js/glider.min.css'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import Country from '../components/commons/Country'
 
 export default function Home () {
   return (
-    <>
-      <Header />
+    <Layout>
       <MainContent>
         <div className='cc__slider-movies'>
           <img src='./sliders-2.jpg' alt='portada pelicula' />
         </div>
-        <CardMovies
+        <CardMain
           title='AGREGADOS RECIENTEMENTE'
         >
-          <Glider
-            className='Grid3Movies'
-            hasArrows
-            slidesToShow={3}
-            slidesToScroll={1}
-            scrollLock
-            draggable
-            iconLeft={<MdOutlineArrowBackIosNew />}
-            iconRight={<MdOutlineArrowForwardIos />}
-          >
-            {/* <div className='Grid3Movies'> */}
-            <Movie title='CADEJO BLANCO' />
-            <Movie title='CADEJO DE HOY EN LA NOCHE PERO NO ME ACUERDO SDF SDFSD SDF DSF' />
-            <Movie title='MERCEDEZ' />
-            <Movie title='PASANDO QUITO' />
-            {/* </div> */}
-          </Glider>
-        </CardMovies>
+          <div className='container-movies'>
+            <Slider
+              slidesToShow={3}
+              slidesToScroll={1}
+              arrows
+              nextArrow={<MdOutlineArrowForwardIos />}
+              prevArrow={<MdOutlineArrowBackIosNew />}
+            >
+              {/* <div className='Grid4Movies'> */}
+              <Movie title='CADEJO BLANCO' imageUrl='./portada_pelicula.png' />
+              <Movie title='JOJO RABBIT' imageUrl='./portada2.jpg' />
+              <Movie title='HARRY POTER' imageUrl='./portada3.jpg' />
+              <Movie title='1917' imageUrl='./portada4.jpg' />
+              <Movie title='Aquaman' imageUrl='./portada5.jpg' />
+              {/* </div> */}
+            </Slider>
+          </div>
+        </CardMain>
+        <CardMain
+          title='!Mira libre ahora¡'
+        >
+          <div className='container-movies'>
+            <Slider
+              className='slider-movies-grid-4'
+              slidesToShow={4}
+              slidesToScroll={1}
+              arrows
+              nextArrow={<MdOutlineArrowForwardIos />}
+              prevArrow={<MdOutlineArrowBackIosNew />}
+            >
+              {/* <div className='Grid4Movies'> */}
+              <Movie title='CADEJO BLANCO' imageUrl='./portada_pelicula.png' />
+              <Movie title='JOJO RABBIT' imageUrl='./portada2.jpg' />
+              <Movie title='HARRY POTER' imageUrl='./portada3.jpg' />
+              <Movie title='1917' imageUrl='./portada4.jpg' />
+              <Movie title='Aquaman' imageUrl='./portada5.jpg' />
+              {/* </div> */}
+            </Slider>
+          </div>
+        </CardMain>
+        <CardMain
+          title='VIVE EL CINE CENTROAMERICANO'
+        >
+          <div className='container-movies'>
+            <Slider
+              slidesToShow={7}
+              slidesToScroll={1}
+              infinite={false}
+              responsive={[
+                {
+                  breakpoint: 1280,
+                  settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1
+                  }
+                }
+              ]}
+              arrows
+              nextArrow={<MdOutlineArrowForwardIos />}
+              prevArrow={<MdOutlineArrowBackIosNew />}
+            >
+              <Country imgUrl='./paises/guatemala.png' />
+              <Country imgUrl='./paises/el-salvador.png' />
+              <Country imgUrl='./paises/honduras.png' />
+              <Country imgUrl='./paises/nicaragua.png' />
+              <Country imgUrl='./paises/costa-rica.png' />
+              <Country imgUrl='./paises/panama.png' />
+            </Slider>
+          </div>
+        </CardMain>
+        <CardMain
+          title='¡MIRA LIBRE AHORA!'
+        >
+          <div className='container-movies'>
+            <Slider
+              slidesToShow={3}
+              slidesToScroll={1}
+              arrows
+              nextArrow={<MdOutlineArrowForwardIos />}
+              prevArrow={<MdOutlineArrowBackIosNew />}
+            >
+              {/* <div className='Grid4Movies'> */}
+              <Movie title='CADEJO BLANCO' imageUrl='./portada_pelicula.png' />
+              <Movie title='JOJO RABBIT' imageUrl='./portada2.jpg' />
+              <Movie title='HARRY POTER' imageUrl='./portada3.jpg' />
+              <Movie title='1917' imageUrl='./portada4.jpg' />
+              <Movie title='Aquaman' imageUrl='./portada5.jpg' />
+              {/* </div> */}
+            </Slider>
+          </div>
+        </CardMain>
       </MainContent>
-    </>
+    </Layout>
   )
 }

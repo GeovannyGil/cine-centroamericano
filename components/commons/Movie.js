@@ -1,12 +1,12 @@
 import Link from 'next/link'
 // import PropTypes from 'prop-types'
 
-export const Movie = ({ title }) => {
+export const Movie = ({ title, imageUrl }) => {
   return (
     // <Link href='/'>
     <div className='cc__movie'>
       <div className='cc__movie-contain-image'>
-        <img src='./portada_pelicula.png' className='cc__img-movie' />
+        <img src={imageUrl} className='cc__img-movie' />
       </div>
       <div className='cc__contain-title-movie'>
         <p>{title}</p>

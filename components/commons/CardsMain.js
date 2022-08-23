@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-export const CardMovies = ({ children, title }) => {
+export const CardMain = ({ children, title }) => {
   return (
     <div className='cc__container-movies'>
       <div className='cc__container-movies-head'>
@@ -13,6 +13,6 @@ export const CardMovies = ({ children, title }) => {
   )
 }
 
-CardMovies.propTypes = {
+CardMain.propTypes = {
   title: PropTypes.string
 }

@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { BiMenu, BiUser } from 'react-icons/bi'
 import Link from 'next/link'
 
-export default function Header ({ title = 'Cine Centroamericano' }) {
+export default function Layout ({ children, title = 'Cine Centroamericano' }) {
   return (
     <>
       <Head>
@@ -25,6 +25,18 @@ export default function Header ({ title = 'Cine Centroamericano' }) {
           <button className='cc__btn-login button-effect-a'>INICIAR SESIÓN <BiUser className='cc__btn-icon' /></button>
         </nav>
       </header>
+      {children}
+      <footer className='cc__footer'>
+        <div className='cc__footer-logo'>
+          <img src='./logo.svg' alt='Logo Cine Centroamericano' />
+          <h1><span>CINE</span> CENTROAMERICANO</h1>
+        </div>
+        <div className='cc__footer-info'>
+          <span>Todos los derechos reservados</span>
+          <span>© Cine Centroamericano 2022</span>
+          <span>Aviso legal y políticas de la plataforma</span>
+        </div>
+      </footer>
     </>
   )
 }
