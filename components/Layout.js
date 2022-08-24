@@ -11,7 +11,7 @@ export default function Layout ({ children, title = 'Cine Centroamericano' }) {
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <meta property='og:title' content={title} />
         <meta property='og:type' content='website' />
-        <meta property='og:url' content='https://cinecentroamericano.com' />
+        {/* OG IMAGE */}
         <meta property='og:image' content='blob:https://vercel.com/9a5ce8cf-96da-4867-bc2d-920dc0af67d5' />
         <meta name='description' content='Plataforma de Peliculas de Cine Centroamericano' />
         <link rel='apple-touch-icon' sizes='180x180' href='./apple-touch-icon.png' />
