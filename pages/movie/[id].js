@@ -1,8 +1,17 @@
 import Layout from '../../components/Layout'
 import MainContent from '../../components/MainContent'
 import { CardMain } from '../../components/commons/CardMain'
+import { openModalMovie, openModalTrailer } from '../../components/Modals/openModal'
 
 const Pelicula = () => {
+  function handleOpenModalMovie () {
+    openModalMovie()
+  }
+
+  function handleOpenModalTrailer () {
+    openModalTrailer()
+  }
+
   return (
     <Layout>
       <MainContent>
@@ -17,8 +26,8 @@ const Pelicula = () => {
               </p>
             </CardMain>
             <div className='cc__movie-btn-actions'>
-              <button className='cc__btn cc__btn-third-color'>▶</button>
-              <button className='cc__btn cc__btn-secondary-color'>ver trailer</button>
+              <button onClick={handleOpenModalMovie} className='cc__btn cc__btn-third-color'>▶</button>
+              <button onClick={handleOpenModalTrailer} className='cc__btn cc__btn-secondary-color'>ver trailer</button>
             </div>
           </div>
         </div>
