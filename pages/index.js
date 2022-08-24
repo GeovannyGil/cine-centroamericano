@@ -94,7 +94,8 @@ export default function Home () {
         >
           <div className='container-movies'>
             <Slider
-              slidesToShow={3}
+              className='slider-movies-grid-4'
+              slidesToShow={4}
               slidesToScroll={1}
               arrows
               nextArrow={<MdOutlineArrowForwardIos />}
