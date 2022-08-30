@@ -2,14 +2,15 @@ import Modal from './Modal'
 import Vimeo from '@u-wave/react-vimeo'
 import styled from './modal.module.scss'
 
-export default function ModalTrailer ({ title, titleMovie = 'Test de Movie', root }) {
+export default function ModalTrailer ({ link, title, root }) {
   return (
     <Modal title={title} root={root}>
       <Vimeo
-        video='386411745'
+        video={link}
         autoplay
         className={styled.cc__movieModalVideo}
         responsive
+        showTitle={title}
         // volume={volume}
         // paused={paused}
         // onPause={this.handlePlayerPause}

@@ -2,32 +2,65 @@ import Layout from '../../components/Layout'
 import MainContent from '../../components/MainContent'
 import { CardMain } from '../../components/commons/CardMain'
 import { openModalMovie, openModalTrailer } from '../../components/Modals/openModal'
+import { fetcher } from '../../libs/api'
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import ReactMarkdown from 'react-markdown'
 
-const Pelicula = () => {
-  function handleOpenModalMovie () {
-    openModalMovie()
+const Pelicula = ({ movie }) => {
+  const [movieData, setMovieData] = useState({})
+  console.log(movieData)
+  useEffect(() => {
+    setMovieData({
+      id: movie.id,
+      title: movie.attributes.title,
+      year: movie.attributes.year,
+      synopsis: movie.attributes.synopsis,
+      cover: movie.attributes.cover.data.attributes.url,
+      movie_uid: movie.attributes.movie_uid,
+      link_movie: movie.attributes.link_movie,
+      link_trailer: movie.attributes.link_trailer,
+      language: movie.attributes.language,
+      duration: movie.attributes.duration,
+      director: movie.attributes.director,
+      genreds: movie.attributes.genred.data.map((g) => {
+        return g.attributes.name
+      }).join(', '),
+      countrys: movie.attributes.country.data.map((g) => {
+        return g.attributes.name
+      }).join(', ')
+    })
+  }, [])
+  function handleOpenModalMovie (link, title) {
+    openModalMovie({ link, title })
   }
-
-  function handleOpenModalTrailer () {
-    openModalTrailer()
+  function handleOpenModalTrailer (link, title) {
+    openModalTrailer({ link, title })
   }
-
   return (
     <Layout>
       <MainContent>
         <div className='cc__movie-container'>
           <div className='cc__movie-portada'>
-            <img src='../../portada_pelicula.png' />
+            <Image
+              src={movieData.cover}
+              // className='cc__img-movie'
+              layout='fill'
+              objectPosition='center'
+              objectFit='contain'
+              priority
+              alt={`Poster de la película ${movieData.title}`}
+            />
           </div>
           <div className='cc__movie-sinopsis'>
             <CardMain title='sinópsis'>
-              <p>
-                Alma y sus hijos fueron asesinados en el conflicto armado de Guatemala. Treinta años después, se abre una causa penal contra Enrique Monteverde, un general retirado que estuvo al frente del genocidio.  Entonces, el espíritu de "La Llorona" se libera para vagar por el mundo como un alma perdida entre los vivos. Por las noches, el ex-militar comienza a escucharla llorar.
-              </p>
+              <ReactMarkdown>
+                {movieData.synopsis}
+              </ReactMarkdown>
             </CardMain>
             <div className='cc__movie-btn-actions'>
-              <button onClick={handleOpenModalMovie} className='cc__btn cc__btn-third-color'>▶</button>
-              <button onClick={handleOpenModalTrailer} className='cc__btn cc__btn-secondary-color'>ver trailer</button>
+              <button onClick={() => handleOpenModalMovie(movieData.link_movie, movieData.title)} className='cc__btn cc__btn-third-color'>▶</button>
+              <button onClick={() => handleOpenModalTrailer(movieData.link_trailer, movieData.title)} className='cc__btn cc__btn-secondary-color'>ver trailer</button>
             </div>
           </div>
         </div>
@@ -35,33 +68,103 @@ const Pelicula = () => {
           <div className='cc__movie-description'>
             <div className='cc__movie-info'>
               <label>Año:</label>
-              <span>2019</span>
+              <span>{movieData.year}</span>
             </div>
             <div className='cc__movie-info'>
               <label>Duración:</label>
-              <span>1 hora</span>
+              <span>{movieData.duration}</span>
             </div>
             <div className='cc__movie-info'>
               <label>Director:</label>
-              <span>Jayro Bustamante</span>
+              <span>{movieData.director}</span>
             </div>
             <div className='cc__movie-info'>
               <label>Generó:</label>
-              <span>Terror</span>
+              <span>{movieData.genreds}</span>
             </div>
             <div className='cc__movie-info'>
               <label>País:</label>
-              <span>Guatemala</span>
+              <span>{movieData.countrys}</span>
             </div>
             <div className='cc__movie-info'>
               <label>Idioma:</label>
-              <span>Español</span>
+              <span>{movieData.language}</span>
             </div>
           </div>
         </CardMain>
       </MainContent>
     </Layout>
   )
+}
+
+export async function getStaticPaths () {
+  // When this is true (in preview environments) don't
+  // prerender any static pages
+  // (faster builds, but slower initial page load)
+  // if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+  //   return {
+  //     paths: [],
+  //     fallback: 'blocking'
+  //   }
+  // }
+
+  const optionsFetchMovies = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${process.env.TOKEN_API}`
+    },
+    params: {
+      'fields[0]': 'id',
+      'fields[1]': 'movie_uid'
+    }
+  }
+
+  // Call an external API endpoint to get countries
+  const { data: countriesResponse } = await fetcher(`${process.env.URL_API}/movies`, optionsFetchMovies)
+  const countriesData = countriesResponse.data
+
+  // Get the paths we want to prerender based on posts
+  // In production environments, prerender all pages
+  // (slower builds, but faster initial page load)
+  const paths = countriesData.map((country) => ({
+    params: { id: country.attributes.movie_uid }
+  }))
+
+  // { fallback: false } means other routes should 404
+  return { paths, fallback: false }
+}
+
+export async function getStaticProps ({ params }) {
+  const optionsFetchMovies = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${process.env.TOKEN_API}`
+    },
+    params: {
+      'filters[movie_uid][$eq]': params.id,
+      'populate[cover][fields][0]': 'url',
+      'populate[genred][fields][0]': 'genred_uid',
+      'populate[genred][fields][1]': 'name',
+      'populate[country][fields][0]': 'name',
+      'populate[country][fields][1]': 'country_uid'
+    }
+  }
+  try {
+    // Get Data From API Strapi with axios with token
+    const { data: moviesResponse } = await fetcher(`${process.env.URL_API}/movies`, optionsFetchMovies)
+    return {
+      props: {
+        movie: moviesResponse.data[0]
+      }
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      props: {
+        country: {}
+      }
+    }
+  }
 }
 
 export default Pelicula

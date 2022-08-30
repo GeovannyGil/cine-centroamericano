@@ -377,6 +377,7 @@ button{
 }
 
 .cc__movie-contain-image{
+  position: relative;
   height: 300px;
   width: 100%;
   overflow: hidden;
@@ -488,6 +489,7 @@ button{
 
 /* ------------------------ CATEGORIA POR PAISES --------------------------- */
 .cc__portada{
+  height: 400px;
   position: relative;
 }
 
@@ -585,7 +587,9 @@ button{
 
 .cc__movie-container .cc__movie-portada{
   height: 100%;
+  width: 100%;
   margin: 0 auto;
+  position: relative;
 }
 
 .cc__movie-container .cc__movie-portada img{

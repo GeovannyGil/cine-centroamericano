@@ -8,8 +8,12 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Country from '../components/commons/Country'
+// import axios from 'axios'
+import { fetcher } from '../libs/api'
 
-export default function Home () {
+export default function Home ({ countries }) {
+  countries = countries.data
+  console.log(countries)
   return (
     <Layout>
       <MainContent>
@@ -28,11 +32,11 @@ export default function Home () {
               prevArrow={<MdOutlineArrowBackIosNew />}
             >
               {/* <div className='Grid4Movies'> */}
-              <Movie title='CADEJO BLANCO' imageUrl='./portada_pelicula.png' />
+              {/* <Movie title='CADEJO BLANCO' imageUrl='./portada_pelicula.png' />
               <Movie title='JOJO RABBIT' imageUrl='./portada2.jpg' />
               <Movie title='HARRY POTER' imageUrl='./portada3.jpg' />
               <Movie title='1917' imageUrl='./portada4.jpg' />
-              <Movie title='Aquaman' imageUrl='./portada5.jpg' />
+              <Movie title='Aquaman' imageUrl='./portada5.jpg' /> */}
               {/* </div> */}
             </Slider>
           </div>
@@ -50,11 +54,11 @@ export default function Home () {
               prevArrow={<MdOutlineArrowBackIosNew />}
             >
               {/* <div className='Grid4Movies'> */}
-              <Movie title='CADEJO BLANCO' imageUrl='./portada_pelicula.png' />
+              {/* <Movie title='CADEJO BLANCO' imageUrl='./portada_pelicula.png' />
               <Movie title='JOJO RABBIT' imageUrl='./portada2.jpg' />
               <Movie title='HARRY POTER' imageUrl='./portada3.jpg' />
               <Movie title='1917' imageUrl='./portada4.jpg' />
-              <Movie title='Aquaman' imageUrl='./portada5.jpg' />
+              <Movie title='Aquaman' imageUrl='./portada5.jpg' /> */}
               {/* </div> */}
             </Slider>
           </div>
@@ -80,12 +84,17 @@ export default function Home () {
               nextArrow={<MdOutlineArrowForwardIos />}
               prevArrow={<MdOutlineArrowBackIosNew />}
             >
-              <Country link='/country/guatemala' imgUrl='./paises/guatemala.png' />
-              <Country link='/country/elsalvador' imgUrl='./paises/el-salvador.png' />
-              <Country link='/country/honduras' imgUrl='./paises/honduras.png' />
-              <Country link='/country/nicaragua' imgUrl='./paises/nicaragua.png' />
-              <Country link='/country/costa-rica' imgUrl='./paises/costa-rica.png' />
-              <Country link='/country/panama' imgUrl='./paises/panama.png' />
+              {
+                countries.map(country => (
+                  <Country
+                    key={country.id}
+                    imgUrl={`${country.attributes.image.data.attributes.url}`}
+                    country={country.attributes.name}
+                    link={country.id}
+                    linkAs={country.attributes.country_uid}
+                  />
+                ))
+              }
             </Slider>
           </div>
         </CardMain>
@@ -102,11 +111,11 @@ export default function Home () {
               prevArrow={<MdOutlineArrowBackIosNew />}
             >
               {/* <div className='Grid4Movies'> */}
-              <Movie title='CADEJO BLANCO' imageUrl='./portada_pelicula.png' />
+              {/* <Movie title='CADEJO BLANCO' imageUrl='./portada_pelicula.png' />
               <Movie title='JOJO RABBIT' imageUrl='./portada2.jpg' />
               <Movie title='HARRY POTER' imageUrl='./portada3.jpg' />
               <Movie title='1917' imageUrl='./portada4.jpg' />
-              <Movie title='Aquaman' imageUrl='./portada5.jpg' />
+              <Movie title='Aquaman' imageUrl='./portada5.jpg' /> */}
               {/* </div> */}
             </Slider>
           </div>
@@ -114,4 +123,29 @@ export default function Home () {
       </MainContent>
     </Layout>
   )
+}
+
+export async function getServerSideProps (context) {
+  try {
+    // Get Data From API Strapi with axios with token
+    const { data: countriesResponse } = await fetcher(`${process.env.URL_API}/countries?populate=%2A`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${process.env.TOKEN_API}`
+      }
+    })
+    // console.log(countriesResponse)
+    return {
+      props: {
+        countries: countriesResponse
+      }
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      props: {
+        countries: {}
+      }
+    }
+  }
 }
