@@ -128,10 +128,10 @@ export default function Home ({ countries }) {
 export async function getServerSideProps (context) {
   try {
     // Get Data From API Strapi with axios with token
-    const { data: countriesResponse } = await fetcher(`${process.env.URL_API}/countries?populate=%2A`, {
+    const { data: countriesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/countries?populate=%2A`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${process.env.TOKEN_API}`
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
       }
     })
     // console.log(countriesResponse)

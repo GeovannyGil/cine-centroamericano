@@ -23,10 +23,10 @@ const Pelicula = ({ movie }) => {
       language: movie.attributes.language,
       duration: movie.attributes.duration,
       director: movie.attributes.director,
-      genreds: movie.attributes.genred.data.map((g) => {
+      genreds: movie.attributes.genreds.data.map((g) => {
         return g.attributes.name
       }).join(', '),
-      countrys: movie.attributes.country.data.map((g) => {
+      countries: movie.attributes.countries.data.map((g) => {
         return g.attributes.name
       }).join(', ')
     })
@@ -84,7 +84,7 @@ const Pelicula = ({ movie }) => {
             </div>
             <div className='cc__movie-info'>
               <label>País:</label>
-              <span>{movieData.countrys}</span>
+              <span>{movieData.countries}</span>
             </div>
             <div className='cc__movie-info'>
               <label>Idioma:</label>
@@ -111,7 +111,7 @@ export async function getStaticPaths () {
   const optionsFetchMovies = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${process.env.TOKEN_API}`
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
     },
     params: {
       'fields[0]': 'id',
@@ -120,7 +120,7 @@ export async function getStaticPaths () {
   }
 
   // Call an external API endpoint to get countries
-  const { data: countriesResponse } = await fetcher(`${process.env.URL_API}/movies`, optionsFetchMovies)
+  const { data: countriesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/movies`, optionsFetchMovies)
   const countriesData = countriesResponse.data
 
   // Get the paths we want to prerender based on posts
@@ -138,20 +138,20 @@ export async function getStaticProps ({ params }) {
   const optionsFetchMovies = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${process.env.TOKEN_API}`
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
     },
     params: {
       'filters[movie_uid][$eq]': params.id,
       'populate[cover][fields][0]': 'url',
-      'populate[genred][fields][0]': 'genred_uid',
-      'populate[genred][fields][1]': 'name',
-      'populate[country][fields][0]': 'name',
-      'populate[country][fields][1]': 'country_uid'
+      'populate[genreds][fields][0]': 'genred_uid',
+      'populate[genreds][fields][1]': 'name',
+      'populate[countries][fields][0]': 'name',
+      'populate[countries][fields][1]': 'country_uid'
     }
   }
   try {
     // Get Data From API Strapi with axios with token
-    const { data: moviesResponse } = await fetcher(`${process.env.URL_API}/movies`, optionsFetchMovies)
+    const { data: moviesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/movies`, optionsFetchMovies)
     return {
       props: {
         movie: moviesResponse.data[0]

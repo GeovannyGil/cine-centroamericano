@@ -1,37 +1,122 @@
 import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
 import { MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from 'react-icons/md'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import clsx from 'clsx'
 import Layout from '../../components/Layout'
 import MainContent from '../../components/MainContent'
 import Slider from 'react-slick'
 import { Movie } from '../../components/commons/Movie'
-import { fetcher } from '../../libs/api'
+import { fetcher, fetchMoreMovies } from '../../libs/api'
 import Image from 'next/image'
+import InfiniteScroll from 'react-infinite-scroller'
+import { Spinner } from '../../components/commons/Spinners'
+import { useRouter } from 'next/router'
+import { parse as parseUrl } from 'query-string'
+// ESTO LO VOY A UTILIZAR PARA PODER EVITAR CARGA DE COMPONENTES QUE NO SE VEN
+// INTERSECTION OBSERVER
+// const LazyMovies = () => {
+//   const [show, setShow] = useState(false)
+//   useEffect(() => {
+//     const onChange = (entries) => {
+//       console.log(entries)
+//       const el = entries[0]
+//     }
+//     const observer = new IntersectionObserver(onChange, {
+//       rootMargin: '100px'
+//     })
 
-const CategoryCountry = ({ country, genres, movies }) => {
-  const [moviesData, setMoviesData] = useState([])
+//     observer.observe(document.getElementById('LazyMovies'))
+//   })
+
+//   return (
+//     <div id='LazyMovies'>
+//       {show ? 'Hola' : null}
+//     </div>
+//   )
+// }
+
+const CategoryCountry = ({ country, genres }) => {
+  const router = useRouter()
   const [filter, setFilter] = useState('all_movies')
   const handleSetFilter = (filter) => {
     setFilter(filter)
+    router.push({
+      pathname: `/country/${router.query.id}`,
+      query: { filter }
+    }, undefined, { shallow: true })
   }
-  useEffect(() => {
-    // FORMAT DATA API MOVIES
-    const data = movies.data.map((movie) => {
+  const [moviesData, setMoviesData] = useState([])
+  const [page, setPage] = useState(1)
+  const [pageLimit, setPageLimit] = useState(true)
+  const [fetching, setFetching] = useState(false)
+  const GetMoreMovies = useCallback(
+    async () => {
+      if (fetching) {
+        return
+      }
+      if (!pageLimit) {
+        return
+      }
+      setFetching(true)
+      try {
+        console.log(page)
+        const { movies, pagination } = await fetchMoreMovies({
+          country: country.attributes.country_uid,
+          genred: filter !== 'all_movies' ? filter : '',
+          page,
+          pageSize: 4
+        })
+        const formatData = formatMovies(movies)
+        setMoviesData([...moviesData, ...formatData])
+        // setMoviesFilter([...moviesFilter, ...formatData])
+        if (page === 1) {
+          setPage(2)
+        } else {
+          setPage(page => page + 1)
+        }
+        setPageLimit(page < pagination.pageCount)
+      } finally {
+        setFetching(false)
+      }
+    },
+    [moviesData, fetching, pageLimit]
+  )
+  const formatMovies = (movies) => {
+    const data = movies.map((movie) => {
       return {
         id: movie.id,
         title: movie.attributes.title,
         cover: movie.attributes.cover.data.attributes.url,
         movie_uid: movie.attributes.movie_uid,
-        genreds: movie.attributes.genred.data.map((g) => {
+        genreds: movie.attributes.genreds.data.map((g) => {
           return g.attributes.genred_uid
         })
       }
     })
-    setMoviesData(data)
-    console.log(data)
+    return data
+  }
+
+  useEffect(() => {
+    const querysUrl = parseUrl(router.asPath.split(/\?/)[1])
+    if (querysUrl?.filter) {
+      setFilter(querysUrl.filter)
+    }
   }, [])
+
+  useEffect(() => {
+    setMoviesData([])
+    setPage(1)
+    setPageLimit(true)
+  }, [filter])
+
+  // useEffect(() => {
+  //   // FORMAT DATA API MOVIES
+  //   const data = formatMovies(movies.data)
+  //   setMoviesData(data)
+  //   setMoviesFilter(data)
+  // }, [])
+
   return (
     <Layout title='Guatemala'>
       <MainContent>
@@ -67,26 +152,34 @@ const CategoryCountry = ({ country, genres, movies }) => {
             )}
           </Slider>
         </div>
-        <div className='cc__movies-grid-category'>
+        <InfiniteScroll
+          pageStart={1}
+          loadMore={GetMoreMovies}
+          hasMore={pageLimit}
+          loader={<Spinner container textActive />}
+        >
           {
-            moviesData?.length === 0
-              ? <h1>Cargando Peliculas</h1>
-              : moviesData?.map(movie =>
-                <Movie
-                  key={movie.id}
-                  title={movie.title}
-                  imageUrl={movie.cover}
-                  id={movie.id}
-                  movieUid={movie.movie_uid}
-                />
-              )
+            moviesData.length !== 0 && (
+              <div className='cc__movies-grid-category'>
+                {
+                  moviesData?.map(movie =>
+                    <Movie
+                      key={movie.id}
+                      title={movie.title}
+                      imageUrl={movie.cover}
+                      id={movie.id}
+                      movieUid={movie.movie_uid}
+                    />
+                  )
+                }
+              </div>
+            )
           }
-          {/* <Movie title='CADEJO BLANCO' imageUrl='./../portada_pelicula.png' /> */}
-          {/* <Movie title='JOJO RABBIT' imageUrl='./../portada2.jpg' />
-          <Movie title='HARRY POTER' imageUrl='./../portada3.jpg' />
-          <Movie title='1917' imageUrl='./../portada4.jpg' />
-          <Movie title='Aquaman' imageUrl='./../portada5.jpg' /> */}
-        </div>
+        </InfiniteScroll>
+        {
+          (moviesData.length === 0 && fetching === false) &&
+            <div className='cc__null-movies'>NO SE ENCONTRO NINGUNA PELÍCULA</div>
+        }
       </MainContent>
     </Layout>
   )
@@ -104,10 +197,10 @@ export async function getStaticPaths () {
   // }
 
   // Call an external API endpoint to get countries
-  const { data: countriesResponse } = await fetcher(`${process.env.URL_API}/countries?populate=%2A`, {
+  const { data: countriesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/countries?populate=%2A`, {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${process.env.TOKEN_API}`
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
     }
   })
   const countriesData = countriesResponse.data
@@ -131,7 +224,7 @@ export async function getStaticProps ({ params }) {
       'pagination[pageSize]': '100'
     },
     headers: {
-      Authorization: `Bearer ${process.env.TOKEN_API}`
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
     }
   }
   const optionsFetchCountry = {
@@ -141,39 +234,42 @@ export async function getStaticProps ({ params }) {
       'filters[country_uid][$eq]': params.id
     },
     headers: {
-      Authorization: `Bearer ${process.env.TOKEN_API}`
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
     }
   }
-  const optionsFetchMovies = {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${process.env.TOKEN_API}`
-    },
-    params: {
-      'filters[country][country_uid][$eq]': params.id,
-      'fields[0]': 'title',
-      'fields[1]': 'movie_uid',
-      'populate[cover][fields][0]': 'url',
-      'populate[genred][fields][0]': 'genred_uid'
-    }
-  }
+  // const optionsFetchMovies = {
+  //   method: 'GET',
+  //   headers: {
+  //     Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
+  //   },
+  //   params: {
+  //     'filters[countries][country_uid][$eq]': params.id,
+  //     'fields[0]': 'title',
+  //     'fields[1]': 'movie_uid',
+  //     'populate[cover][fields][0]': 'url',
+  //     'populate[genreds][fields][0]': 'genred_uid',
+  //     'pagination[page]': 1,
+  //     'pagination[pageSize]': 12
+  //   }
+  // }
   try {
     // Get Data From API Strapi with axios with token
-    const { data: countriesResponse } = await fetcher(`${process.env.URL_API}/countries`, optionsFetchCountry)
-    const { data: genredResponse } = await fetcher(`${process.env.URL_API}/genreds`, optionsFetchGenred)
-    const { data: moviesResponse } = await fetcher(`${process.env.URL_API}/movies`, optionsFetchMovies)
+    const { data: countriesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/countries`, optionsFetchCountry)
+    const { data: genredResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/genreds`, optionsFetchGenred)
+    // const { data: moviesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/movies`, optionsFetchMovies)
     return {
       props: {
         country: countriesResponse.data[0],
-        genres: genredResponse.data,
-        movies: moviesResponse
+        genres: genredResponse.data
+        // movies: moviesResponse
       }
     }
   } catch (error) {
     console.error(error)
     return {
       props: {
-        country: {}
+        country: {},
+        genres: {}
       }
     }
   }
