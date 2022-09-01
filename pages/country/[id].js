@@ -7,7 +7,7 @@ import Layout from '../../components/Layout'
 import MainContent from '../../components/MainContent'
 import Slider from 'react-slick'
 import { Movie } from '../../components/commons/Movie'
-import { fetcher, fetchMoreMovies } from '../../libs/api'
+import { fetcher, fetchMoreMovies, formatMovies } from '../../libs'
 import Image from 'next/image'
 import InfiniteScroll from 'react-infinite-scroller'
 import { Spinner } from '../../components/commons/Spinners'
@@ -82,20 +82,6 @@ const CategoryCountry = ({ country, genres }) => {
     },
     [moviesData, fetching, pageLimit]
   )
-  const formatMovies = (movies) => {
-    const data = movies.map((movie) => {
-      return {
-        id: movie.id,
-        title: movie.attributes.title,
-        cover: movie.attributes.cover.data.attributes.url,
-        movie_uid: movie.attributes.movie_uid,
-        genreds: movie.attributes.genreds.data.map((g) => {
-          return g.attributes.genred_uid
-        })
-      }
-    })
-    return data
-  }
 
   useEffect(() => {
     const querysUrl = parseUrl(router.asPath.split(/\?/)[1])

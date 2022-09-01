@@ -3,10 +3,17 @@ import Vimeo from '@u-wave/react-vimeo'
 import styled from './modal.module.scss'
 
 export default function ModalTrailer ({ link, title, root }) {
+  const vimeoReg = /(videos|video|channels|\.com)\/([\d]+)/
+  function vimeoID (url) {
+    console.log(url)
+    const match = url.match(vimeoReg)
+    console.log(match)
+    return match[2]
+  }
   return (
     <Modal title={title} root={root}>
       <Vimeo
-        video={link}
+        video={vimeoID(link)}
         autoplay
         className={styled.cc__movieModalVideo}
         responsive
@@ -16,17 +23,6 @@ export default function ModalTrailer ({ link, title, root }) {
         // onPause={this.handlePlayerPause}
         // onPlay={this.handlePlayerPlay}
       />
-      {/* <iframe
-        src='https://player.vimeo.com/video/597590009?h=a4f317475c&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479'
-        frameBorder='0'
-        allow='
-        autoplay;
-        fullscreen;
-        picture-in-picture'
-        allowFullScreen
-        title='titleMovie'
-      /> */}
-      {/* <script src='https://player.vimeo.com/api/player.js' /> */}
     </Modal>
   )
 }

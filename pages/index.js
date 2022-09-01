@@ -9,10 +9,51 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Country from '../components/commons/Country'
 // import axios from 'axios'
-import { fetcher } from '../libs/api'
+// eslint-disable-next-line no-unused-vars
+import { fetcher, fetchMoreMovies, formatMovies, formatOnlyMovies } from '../libs'
+import { useCallback, useState } from 'react'
+import { Spinner } from '../components/commons/Spinners'
+import InfiniteScroll from 'react-infinite-scroller'
 
-export default function Home ({ countries }) {
-  countries = countries.data
+export default function Home ({ countries, movies }) {
+  const moviesData = formatOnlyMovies(movies.data)
+  // const [moviesByCountries] = useState([])
+  const [moviesByCountries, setMoviesByCountries] = useState([])
+  const [lengthCountries, setLengthCountries] = useState(1)
+  const [lengthLimit, setLengthLimit] = useState(true)
+  const [fetching, setFetching] = useState(false)
+
+  const GetMoreMoviesByCountries = useCallback(
+    async () => {
+      if (fetching) {
+        return
+      }
+      if (!lengthLimit) {
+        return
+      }
+      setFetching(true)
+      try {
+        console.log(lengthCountries, countries.length)
+
+        const { movies } = await fetchMoreMovies({
+          country: countries[lengthCountries - 1].uid,
+          pageSize: 10
+        })
+        const data = {
+          country: countries[lengthCountries - 1],
+          movies: formatMovies(movies)
+        }
+        console.log('Datos con su pais y peliculas', data)
+        setMoviesByCountries([...moviesByCountries, data])
+        setLengthCountries(lengthCountries => lengthCountries + 1)
+        setLengthLimit(!(lengthCountries === countries.length))
+      } finally {
+        setFetching(false)
+      }
+    },
+    [moviesByCountries, fetching, lengthLimit]
+  )
+
   console.log(countries)
   return (
     <Layout>
@@ -31,38 +72,62 @@ export default function Home ({ countries }) {
               nextArrow={<MdOutlineArrowForwardIos />}
               prevArrow={<MdOutlineArrowBackIosNew />}
             >
-              {/* <div className='Grid4Movies'> */}
-              {/* <Movie title='CADEJO BLANCO' imageUrl='./portada_pelicula.png' />
-              <Movie title='JOJO RABBIT' imageUrl='./portada2.jpg' />
-              <Movie title='HARRY POTER' imageUrl='./portada3.jpg' />
-              <Movie title='1917' imageUrl='./portada4.jpg' />
-              <Movie title='Aquaman' imageUrl='./portada5.jpg' /> */}
-              {/* </div> */}
+              {
+                moviesData.map(movie =>
+                  <Movie
+                    key={movie.id}
+                    title={movie.title}
+                    imageUrl={movie.cover}
+                    id={movie.id}
+                    movieUid={movie.movie_uid}
+                    priority
+                  />
+                )
+              }
             </Slider>
           </div>
         </CardMain>
-        <CardMain
-          title='!Mira libre ahora¡'
+        <InfiniteScroll
+          pageStart={1}
+          loadMore={GetMoreMoviesByCountries}
+          hasMore={lengthLimit}
+          loader={<Spinner container textActive />}
         >
-          <div className='container-movies'>
-            <Slider
-              className='slider-movies-grid-4'
-              slidesToShow={4}
-              slidesToScroll={1}
-              arrows
-              nextArrow={<MdOutlineArrowForwardIos />}
-              prevArrow={<MdOutlineArrowBackIosNew />}
-            >
-              {/* <div className='Grid4Movies'> */}
-              {/* <Movie title='CADEJO BLANCO' imageUrl='./portada_pelicula.png' />
-              <Movie title='JOJO RABBIT' imageUrl='./portada2.jpg' />
-              <Movie title='HARRY POTER' imageUrl='./portada3.jpg' />
-              <Movie title='1917' imageUrl='./portada4.jpg' />
-              <Movie title='Aquaman' imageUrl='./portada5.jpg' /> */}
-              {/* </div> */}
-            </Slider>
-          </div>
-        </CardMain>
+          {
+            moviesByCountries.map(movieBycountry => {
+              return (
+                <CardMain
+                  title={`Películas de ${movieBycountry.country.name}`}
+                  key={`${movieBycountry.country.uid}-slider`}
+                >
+                  <div className='container-movies'>
+                    <Slider
+                      className='slider-movies-grid-4'
+                      slidesToShow={4}
+                      slidesToScroll={1}
+                      arrows
+                      nextArrow={<MdOutlineArrowForwardIos />}
+                      prevArrow={<MdOutlineArrowBackIosNew />}
+                    >
+                      {
+                        movieBycountry.movies.map(movie =>
+                          <Movie
+                            key={movie.id}
+                            title={movie.title}
+                            imageUrl={movie.cover}
+                            id={movie.id}
+                            movieUid={movie.movie_uid}
+                            priority
+                          />)
+                      }
+                    </Slider>
+                  </div>
+                </CardMain>
+              )
+            })
+          }
+        </InfiniteScroll>
+
         <CardMain
           title='VIVE EL CINE CENTROAMERICANO'
         >
@@ -88,35 +153,13 @@ export default function Home ({ countries }) {
                 countries.map(country => (
                   <Country
                     key={country.id}
-                    imgUrl={`${country.attributes.image.data.attributes.url}`}
-                    country={country.attributes.name}
+                    imgUrl={`${country.image}`}
+                    country={country.name}
                     link={country.id}
-                    linkAs={country.attributes.country_uid}
+                    linkAs={country.uid}
                   />
                 ))
               }
-            </Slider>
-          </div>
-        </CardMain>
-        <CardMain
-          title='¡MIRA LIBRE AHORA!'
-        >
-          <div className='container-movies'>
-            <Slider
-              className='slider-movies-grid-4'
-              slidesToShow={4}
-              slidesToScroll={1}
-              arrows
-              nextArrow={<MdOutlineArrowForwardIos />}
-              prevArrow={<MdOutlineArrowBackIosNew />}
-            >
-              {/* <div className='Grid4Movies'> */}
-              {/* <Movie title='CADEJO BLANCO' imageUrl='./portada_pelicula.png' />
-              <Movie title='JOJO RABBIT' imageUrl='./portada2.jpg' />
-              <Movie title='HARRY POTER' imageUrl='./portada3.jpg' />
-              <Movie title='1917' imageUrl='./portada4.jpg' />
-              <Movie title='Aquaman' imageUrl='./portada5.jpg' /> */}
-              {/* </div> */}
             </Slider>
           </div>
         </CardMain>
@@ -127,17 +170,49 @@ export default function Home ({ countries }) {
 
 export async function getServerSideProps (context) {
   try {
-    // Get Data From API Strapi with axios with token
-    const { data: countriesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/countries?populate=%2A`, {
+    const optionsCountriMovies = {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
+      },
+      params: {
+        'fields[0]': 'name',
+        'fields[1]': 'title',
+        'fields[2]': 'country_uid',
+        'populate[image][fields][0]': 'url'
+      }
+    }
+    const optionsFetchMovies = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
+      },
+      params: {
+        'fields[0]': 'title',
+        'fields[1]': 'movie_uid',
+        'populate[cover][fields][0]': 'url',
+        'pagination[page]': 1,
+        'pagination[pageSize]': 10,
+        'sort[0]​': 'createdAt:desc'
+      }
+    }
+
+    const { data: countriesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/countries`, optionsCountriMovies)
+    const formatCountrie = countriesResponse.data.map(country => {
+      return {
+        id: country.id,
+        name: country.attributes.name,
+        title: country.attributes.title,
+        uid: country.attributes.country_uid,
+        image: country.attributes.image.data.attributes.url
       }
     })
-    // console.log(countriesResponse)
+    const { data: moviesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/movies`, optionsFetchMovies)
+
     return {
       props: {
-        countries: countriesResponse
+        countries: formatCountrie,
+        movies: moviesResponse
       }
     }
   } catch (error) {

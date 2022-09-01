@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 // import PropTypes from 'prop-types'
 
-export const Movie = ({ id, movieUid, title, imageUrl }) => {
+export const Movie = ({ id, movieUid, title, imageUrl, priority = false }) => {
   return (
     // <Link href='/'>
     <div className='cc__movie'>
@@ -13,8 +13,9 @@ export const Movie = ({ id, movieUid, title, imageUrl }) => {
           layout='fill'
           objectPosition='center'
           objectFit='cover'
-          loading='lazy'
+          // loading='lazy'
           alt={`Poster de la película ${title}`}
+          priority={priority}
         />
       </div>
       <div className='cc__contain-title-movie'>
