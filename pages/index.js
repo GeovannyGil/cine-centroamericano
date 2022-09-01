@@ -100,35 +100,38 @@ export default function Home ({ countries, movies }) {
         >
           {
             moviesByCountries.map(movieBycountry => {
-              return (
-                <CardMain
-                  title={`Películas de ${movieBycountry.country.name}`}
-                  key={`${movieBycountry.country.uid}-slider`}
-                >
-                  <div className='container-movies'>
-                    <Slider
-                      className='slider-movies-grid-4'
-                      slidesToShow={4}
-                      slidesToScroll={1}
-                      arrows
-                      nextArrow={<MdOutlineArrowForwardIos />}
-                      prevArrow={<MdOutlineArrowBackIosNew />}
-                    >
-                      {
-                        movieBycountry.movies.map(movie =>
-                          <Movie
-                            key={movie.id}
-                            title={movie.title}
-                            imageUrl={movie.cover}
-                            id={movie.id}
-                            movieUid={movie.movie_uid}
-                            priority
-                          />)
-                      }
-                    </Slider>
-                  </div>
-                </CardMain>
-              )
+              if (movieBycountry.movies.length === 0) {
+                return (
+                  <CardMain
+                    title={`Películas de ${movieBycountry.country.name}`}
+                    key={`${movieBycountry.country.uid}-slider`}
+                  >
+                    <div className='container-movies'>
+                      <Slider
+                        className='slider-movies-grid-4'
+                        slidesToShow={4}
+                        slidesToScroll={1}
+                        arrows
+                        nextArrow={<MdOutlineArrowForwardIos />}
+                        prevArrow={<MdOutlineArrowBackIosNew />}
+                      >
+                        {
+                          movieBycountry.movies.map(movie =>
+                            <Movie
+                              key={movie.id}
+                              title={movie.title}
+                              imageUrl={movie.cover}
+                              id={movie.id}
+                              movieUid={movie.movie_uid}
+                              priority
+                            />)
+                        }
+                      </Slider>
+                    </div>
+                  </CardMain>
+                )
+              }
+              return true
             })
           }
         </InfiniteScroll>
