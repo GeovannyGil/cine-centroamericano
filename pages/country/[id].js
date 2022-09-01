@@ -171,38 +171,38 @@ const CategoryCountry = ({ country, genres }) => {
   )
 }
 
-export async function getStaticPaths () {
-  // When this is true (in preview environments) don't
-  // prerender any static pages
-  // (faster builds, but slower initial page load)
-  // if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-  //   return {
-  //     paths: [],
-  //     fallback: 'blocking'
-  //   }
-  // }
+// export async function getStaticPaths () {
+//   // When this is true (in preview environments) don't
+//   // prerender any static pages
+//   // (faster builds, but slower initial page load)
+//   // if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+//   //   return {
+//   //     paths: [],
+//   //     fallback: 'blocking'
+//   //   }
+//   // }
 
-  // Call an external API endpoint to get countries
-  const { data: countriesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/countries?populate=%2A`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
-    }
-  })
-  const countriesData = countriesResponse.data
+//   // Call an external API endpoint to get countries
+//   const { data: countriesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/countries?populate=%2A`, {
+//     method: 'GET',
+//     headers: {
+//       Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
+//     }
+//   })
+//   const countriesData = countriesResponse.data
 
-  // Get the paths we want to prerender based on posts
-  // In production environments, prerender all pages
-  // (slower builds, but faster initial page load)
-  const paths = countriesData.map((country) => ({
-    params: { id: country.attributes.country_uid }
-  }))
+//   // Get the paths we want to prerender based on posts
+//   // In production environments, prerender all pages
+//   // (slower builds, but faster initial page load)
+//   const paths = countriesData.map((country) => ({
+//     params: { id: country.attributes.country_uid }
+//   }))
 
-  // { fallback: false } means other routes should 404
-  return { paths, fallback: false }
-}
+//   // { fallback: false } means other routes should 404
+//   return { paths, fallback: false }
+// }
 
-export async function getStaticProps ({ params }) {
+export async function getServerSideProps ({ params }) {
   const optionsFetchGenred = {
     method: 'GET',
     params: {
