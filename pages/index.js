@@ -74,6 +74,7 @@ export default function Home ({ countries, movies }) {
               slidesToShow={3}
               slidesToScroll={1}
               arrows
+              infinite={false}
               nextArrow={<MdOutlineArrowForwardIos />}
               prevArrow={<MdOutlineArrowBackIosNew />}
             >
@@ -111,6 +112,7 @@ export default function Home ({ countries, movies }) {
                         className='slider-movies-grid-4'
                         slidesToShow={4}
                         slidesToScroll={1}
+                        infinite={false}
                         arrows
                         nextArrow={<MdOutlineArrowForwardIos />}
                         prevArrow={<MdOutlineArrowBackIosNew />}
