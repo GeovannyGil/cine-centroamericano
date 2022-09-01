@@ -65,7 +65,7 @@ const CategoryCountry = ({ country, genres }) => {
           country: country.attributes.country_uid,
           genred: filter !== 'all_movies' ? filter : '',
           page,
-          pageSize: 4
+          pageSize: 12
         })
         const formatData = formatMovies(movies)
         setMoviesData([...moviesData, ...formatData])
