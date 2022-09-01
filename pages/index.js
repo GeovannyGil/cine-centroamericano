@@ -100,7 +100,7 @@ export default function Home ({ countries, movies }) {
         >
           {
             moviesByCountries.map(movieBycountry => {
-              if (movieBycountry.movies.length === 0) {
+              if (movieBycountry.movies.length !== 0) {
                 return (
                   <CardMain
                     title={`Películas de ${movieBycountry.country.name}`}
