@@ -11,7 +11,7 @@ import Country from '../components/commons/Country'
 // import axios from 'axios'
 // eslint-disable-next-line no-unused-vars
 import { fetcher, fetchMoreMovies, formatMovies, formatOnlyMovies } from '../libs'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Spinner } from '../components/commons/Spinners'
 import InfiniteScroll from 'react-infinite-scroller'
 
@@ -54,7 +54,12 @@ export default function Home ({ countries, movies }) {
     [moviesByCountries, fetching, lengthLimit]
   )
 
-  console.log(countries)
+  useEffect(() => {
+    if (countries.length === 0) {
+      setLengthLimit(false)
+    }
+  }, [])
+
   return (
     <Layout>
       <MainContent>
