@@ -12,7 +12,6 @@ export async function fetchMoreMovies (parameters = {
   page: 1,
   pageSize: 12
 }) {
-  console.log('fetchMoreMovies', parameters)
   const optionsFetchMovies = {
     method: 'GET',
     headers: {
@@ -34,7 +33,6 @@ export async function fetchMoreMovies (parameters = {
     optionsFetchMovies.params['populate[genreds][fields][0]'] = parameters.genred_uid
   }
   const { data: moviesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/movies`, optionsFetchMovies)
-  console.log('Movies Response', moviesResponse)
   return {
     movies: moviesResponse.data,
     pagination: moviesResponse.meta.pagination

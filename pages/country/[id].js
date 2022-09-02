@@ -60,7 +60,6 @@ const CategoryCountry = ({ country, genres }) => {
       }
       setFetching(true)
       try {
-        console.log(page)
         const { movies, pagination } = await fetchMoreMovies({
           country: country.attributes.country_uid,
           genred: filter !== 'all_movies' ? filter : '',

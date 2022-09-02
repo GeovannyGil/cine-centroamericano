@@ -8,7 +8,7 @@ export default function Layout ({
   title = 'Cine Centroamericano',
   descriptionOg = 'Plataforma de películas de Cine Centroamericano',
   typeOg = 'website',
-  imageOg = '../public/og_image.jpg'
+  imageOg = './og_image.jpg'
 }) {
   return (
     <>

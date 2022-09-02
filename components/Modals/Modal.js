@@ -5,7 +5,6 @@ export default function Modal ({ children, title, root }) {
   const ref = useRef(null)
 
   function callback (e) {
-    console.log(e.target)
     ref.current.removeEventListener('animationend', callback)
     root.unmount()
     document.querySelector('#modal').remove()

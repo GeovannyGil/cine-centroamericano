@@ -24,8 +24,6 @@ export default function Home ({ countries, movies, sliders }) {
   const [lengthLimit, setLengthLimit] = useState(true)
   const [fetching, setFetching] = useState(false)
 
-  console.log(sliders, 'Sliders')
-
   const GetMoreMoviesByCountries = useCallback(
     async () => {
       if (fetching) {
@@ -36,8 +34,6 @@ export default function Home ({ countries, movies, sliders }) {
       }
       setFetching(true)
       try {
-        console.log(lengthCountries, countries.length)
-
         const { movies } = await fetchMoreMovies({
           country: countries[lengthCountries - 1].uid,
           pageSize: 10
@@ -46,7 +42,6 @@ export default function Home ({ countries, movies, sliders }) {
           country: countries[lengthCountries - 1],
           movies: formatMovies(movies)
         }
-        console.log('Datos con su pais y peliculas', data)
         setMoviesByCountries([...moviesByCountries, data])
         setLengthCountries(lengthCountries => lengthCountries + 1)
         setLengthLimit(!(lengthCountries === countries.length))

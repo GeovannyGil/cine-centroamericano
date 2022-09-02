@@ -1,12 +1,9 @@
 import Modal from './Modal'
 
 export default function ModalTrailer ({ link, title, root }) {
-  console.log(link, title)
   function youtubeParser (url) {
-    console.log(url)
     const regExp = /^.*(youtu.be\/|v\/|embed\/|watch\?|youtube.com\/user\/[^#]*#([^/]*?\/)*)\??v?=?([^#&?]*).*/
     const match = url.match(regExp)
-    console.log(match)
     // if (match && match[7].length === 11) {
     return match[3]
     // } else {

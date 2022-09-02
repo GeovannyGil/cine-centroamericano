@@ -9,7 +9,6 @@ import ReactMarkdown from 'react-markdown'
 
 const Pelicula = ({ movie }) => {
   const [movieData, setMovieData] = useState({})
-  console.log(movieData)
   useEffect(() => {
     setMovieData({
       id: movie.id,
@@ -65,7 +64,7 @@ const Pelicula = ({ movie }) => {
             </CardMain>
             <div className='cc__movie-btn-actions'>
               <button onClick={() => handleOpenModalMovie(movieData.link_movie, movieData.title)} className='cc__btn cc__btn-third-color'>▶</button>
-              <button disabled={movieData.link_trailer === ''} onClick={() => handleOpenModalTrailer(movieData.link_trailer, movieData.title)} className='cc__btn cc__btn-secondary-color'>ver trailer</button>
+              <button disabled={movieData.link_trailer === null} onClick={() => handleOpenModalTrailer(movieData.link_trailer, movieData.title)} className='cc__btn cc__btn-secondary-color'>ver trailer</button>
             </div>
           </div>
         </div>

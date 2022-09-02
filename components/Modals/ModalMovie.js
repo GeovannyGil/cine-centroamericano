@@ -5,9 +5,7 @@ import styled from './modal.module.scss'
 export default function ModalTrailer ({ link, title, root }) {
   const vimeoReg = /(videos|video|channels|\.com)\/([\d]+)/
   function vimeoID (url) {
-    console.log(url)
     const match = url.match(vimeoReg)
-    console.log(match)
     return match[2]
   }
   return (
