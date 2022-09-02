@@ -104,7 +104,12 @@ const CategoryCountry = ({ country, genres }) => {
   // }, [])
 
   return (
-    <Layout title='Guatemala'>
+    <Layout
+      title={`${country.attributes.name} | Cine Centroamericano`}
+      descriptionOg={`Sección de peliculas solo de ${country.attributes.name}`}
+      typeOg='section.country'
+      imageOg={country.attributes.banner.data.attributes.url}
+    >
       <MainContent>
         <div className='cc__portada'>
           <Image
@@ -125,12 +130,12 @@ const CategoryCountry = ({ country, genres }) => {
         <div className='cc__movies-categories'>
           <Slider
             className='cc__movies-categories-slider'
-            infinite={false}
             slidesToShow={5}
             slidesToScroll={1}
             arrows
             nextArrow={<MdOutlineArrowForwardIos />}
             prevArrow={<MdOutlineArrowBackIosNew />}
+            infinite={genres.length > 5}
           >
             <span className={clsx(filter === 'all_movies' && 'active')} onClick={() => handleSetFilter('all_movies')}>Todos</span>
             {genres.map((gen) =>
@@ -223,21 +228,6 @@ export async function getServerSideProps ({ params }) {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
     }
   }
-  // const optionsFetchMovies = {
-  //   method: 'GET',
-  //   headers: {
-  //     Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
-  //   },
-  //   params: {
-  //     'filters[countries][country_uid][$eq]': params.id,
-  //     'fields[0]': 'title',
-  //     'fields[1]': 'movie_uid',
-  //     'populate[cover][fields][0]': 'url',
-  //     'populate[genreds][fields][0]': 'genred_uid',
-  //     'pagination[page]': 1,
-  //     'pagination[pageSize]': 12
-  //   }
-  // }
   try {
     // Get Data From API Strapi with axios with token
     const { data: countriesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/countries`, optionsFetchCountry)

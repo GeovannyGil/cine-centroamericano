@@ -14,14 +14,17 @@ import { fetcher, fetchMoreMovies, formatMovies, formatOnlyMovies } from '../lib
 import { useCallback, useEffect, useState } from 'react'
 import { Spinner } from '../components/commons/Spinners'
 import InfiniteScroll from 'react-infinite-scroller'
+// import Image from 'next/image'
 
-export default function Home ({ countries, movies }) {
+export default function Home ({ countries, movies, sliders }) {
   const moviesData = formatOnlyMovies(movies.data)
   // const [moviesByCountries] = useState([])
   const [moviesByCountries, setMoviesByCountries] = useState([])
   const [lengthCountries, setLengthCountries] = useState(1)
   const [lengthLimit, setLengthLimit] = useState(true)
   const [fetching, setFetching] = useState(false)
+
+  console.log(sliders, 'Sliders')
 
   const GetMoreMoviesByCountries = useCallback(
     async () => {
@@ -64,7 +67,25 @@ export default function Home ({ countries, movies }) {
     <Layout>
       <MainContent>
         <div className='cc__slider-movies'>
-          <img src='./sliders-2.jpg' alt='portada pelicula' />
+          <Slider
+            className='cc__slider-home-content'
+            slidesToShow={1}
+            slidesToScroll={1}
+            infinite={sliders.length > 1}
+            dots
+            arrows={false}
+            autoplay
+            autoplaySpeed={6000}
+            adaptiveHeight
+            fade
+            pauseOnHover
+          >
+            {
+              sliders.map(slider => (
+                <img src={slider.attributes.image.data.attributes.url} loading='lazy' alt={slider.attributes.title} key={slider.id} />
+              ))
+            }
+          </Slider>
         </div>
         <CardMain
           title='AGREGADOS RECIENTEMENTE'
@@ -74,7 +95,7 @@ export default function Home ({ countries, movies }) {
               slidesToShow={3}
               slidesToScroll={1}
               arrows
-              infinite={false}
+              infinite={movies.length > 3}
               nextArrow={<MdOutlineArrowForwardIos />}
               prevArrow={<MdOutlineArrowBackIosNew />}
             >
@@ -111,8 +132,8 @@ export default function Home ({ countries, movies }) {
                       <Slider
                         className='slider-movies-grid-4'
                         slidesToShow={4}
+                        infinite={movieBycountry.movies.length > 4}
                         slidesToScroll={1}
-                        infinite={false}
                         arrows
                         nextArrow={<MdOutlineArrowForwardIos />}
                         prevArrow={<MdOutlineArrowBackIosNew />}
@@ -143,9 +164,9 @@ export default function Home ({ countries, movies }) {
         >
           <div className='container-movies'>
             <Slider
-              slidesToShow={7}
+              slidesToShow={6}
               slidesToScroll={1}
-              infinite={false}
+              infinite={countries.length > 6}
               responsive={[
                 {
                   breakpoint: 1280,
@@ -180,6 +201,17 @@ export default function Home ({ countries, movies }) {
 
 export async function getServerSideProps (context) {
   try {
+    const optionsSliders = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
+      },
+      params: {
+        'fields[1]': 'title',
+        'fields[2]': 'description',
+        'populate[image][fields][0]': 'url'
+      }
+    }
     const optionsCountriMovies = {
       method: 'GET',
       headers: {
@@ -207,6 +239,7 @@ export async function getServerSideProps (context) {
       }
     }
 
+    const { data: slidersResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/sliders`, optionsSliders)
     const { data: countriesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/countries`, optionsCountriMovies)
     const formatCountrie = countriesResponse.data.map(country => {
       return {
@@ -221,6 +254,7 @@ export async function getServerSideProps (context) {
 
     return {
       props: {
+        sliders: slidersResponse.data,
         countries: formatCountrie,
         movies: moviesResponse
       }

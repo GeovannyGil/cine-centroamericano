@@ -38,7 +38,12 @@ const Pelicula = ({ movie }) => {
     openModalTrailer({ link, title })
   }
   return (
-    <Layout>
+    <Layout
+      title={`${movieData.title} | Cine Centroamericano`}
+      descriptionOg={`${movieData.title}`}
+      typeOg='video.movie'
+      imageOg={movieData.cover}
+    >
       <MainContent>
         <div className='cc__movie-container'>
           <div className='cc__movie-portada'>

@@ -3,17 +3,25 @@ import { BiMenu, BiUser } from 'react-icons/bi'
 import Link from 'next/link'
 import logoSvg from '../public/logo.svg'
 
-export default function Layout ({ children, title = 'Cine Centroamericano' }) {
+export default function Layout ({
+  children,
+  title = 'Cine Centroamericano',
+  descriptionOg = 'Plataforma de películas de Cine Centroamericano',
+  typeOg = 'website',
+  imageOg = '../public/og_image.jpg'
+}) {
   return (
     <>
       <Head>
         <title>{title}</title>
-        {/* <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <meta name='description' content={descriptionOg} />
         <meta property='og:title' content={title} />
-        <meta property='og:type' content='website' /> */}
+        <meta property='og:type' content={typeOg} />
+        <meta property='og:image' content={imageOg} />
+        {/* <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         {/* OG IMAGE */}
-        {/* <meta property='og:image' content='blob:https://vercel.com/9a5ce8cf-96da-4867-bc2d-920dc0af67d5' />
-        <meta name='description' content='Plataforma de Peliculas de Cine Centroamericano' />
+        {/*
         <link rel='apple-touch-icon' sizes='180x180' href='./apple-touch-icon.png' />
         <link rel='icon' type='image/png' sizes='32x32' href='./favicon-32x32.png' />
         <link rel='icon' type='image/png' sizes='16x16' href='./favicon-16x16.png' />

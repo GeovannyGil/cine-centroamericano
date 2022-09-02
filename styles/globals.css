@@ -342,6 +342,46 @@ button{
   /* height: 85%; */
 }
 
+.cc__slider-home-content .slick-dots{
+  display: flex !important;
+  bottom: 0;
+  top: 60%;
+  left: 100%;
+  transform: translateY(-50%);
+  list-style: none;
+  text-align: center;
+  margin: 0px 10px;
+  /* padding: 11% 1% 11% 1.5%; */
+  width: auto;
+  gap: 1.5em;
+  flex-direction: column;
+}
+.cc__slider-home-content .slick-dots li{
+  margin: 0 2em;
+  /* height: 4em; */
+}
+.cc__slider-home-content .slick-dots li button:before{
+    color: var(--color-icons);
+    font-size: 22px;
+    /* font-family: 'slick';
+    font-size: 6px;
+    line-height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    content: '•';
+    text-align: center;
+    opacity: .25;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; */
+}
+
+.cc__slider-home-content .slick-dots li.slick-active button:before{
+    color: var(--secondary-color);
+}
+
 .cc__slider-movies img {
   width: 100%;
   height: 100%;
@@ -470,6 +510,11 @@ button{
   color: white !important;
   transform: scale(2) !important;
   /* background: black !important; */
+}
+
+.slick-prev.slick-disabled,
+.slick-next.slick-disabled{
+  opacity: 0.2 !important;
 }
 
 /* CARD COUNTRYES */
