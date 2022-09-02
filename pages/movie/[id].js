@@ -39,10 +39,10 @@ const Pelicula = ({ movie }) => {
   }
   return (
     <Layout
-      title={`${movieData.title} | Cine Centroamericano`}
-      descriptionOg={`${movieData.title}`}
+      title={`${movie.attributes.title} | Cine Centroamericano`}
+      descriptionOg={`${movie.attributes.synopsis}`}
       typeOg='video.movie'
-      imageOg={movieData.cover}
+      imageOg={movie.attributes.cover.data.attributes.url}
     >
       <MainContent>
         <div className='cc__movie-container'>
@@ -65,7 +65,7 @@ const Pelicula = ({ movie }) => {
             </CardMain>
             <div className='cc__movie-btn-actions'>
               <button onClick={() => handleOpenModalMovie(movieData.link_movie, movieData.title)} className='cc__btn cc__btn-third-color'>▶</button>
-              <button onClick={() => handleOpenModalTrailer(movieData.link_trailer, movieData.title)} className='cc__btn cc__btn-secondary-color'>ver trailer</button>
+              <button disabled={movieData.link_trailer === ''} onClick={() => handleOpenModalTrailer(movieData.link_trailer, movieData.title)} className='cc__btn cc__btn-secondary-color'>ver trailer</button>
             </div>
           </div>
         </div>
