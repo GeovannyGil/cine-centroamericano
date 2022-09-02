@@ -108,6 +108,7 @@ const CategoryCountry = ({ country, genres }) => {
       descriptionOg={`Sección de peliculas solo de ${country.attributes.name}`}
       typeOg='section.country'
       imageOg={country.attributes.banner.data.attributes.url}
+      urlOg={`/movie/${country.attributes.country_uid}`}
     >
       <MainContent>
         <div className='cc__portada'>

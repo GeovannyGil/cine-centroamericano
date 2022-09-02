@@ -51,7 +51,7 @@ a {
   cursor: pointer;
 }
 
-h1,h2,h3{
+h1,h2,h3,h4,h5,h6 {
   letter-spacing: 6px;
 }
 
@@ -268,12 +268,19 @@ button{
   height: 100%;
 }
 
-.cc__footer-logo h1 {
+.cc__footer-logo-text {
+  font-family: var(--font-family-Bebas);
+  font-size: 5rem;
+  font-weight: 700;
+  color: var(--title-color);
+}
+
+.cc__footer-logo-text {
   font-size: 8.5em;
   letter-spacing: 0px;
   font-weight: 500;
 }
-.cc__footer-logo h1 span {
+.cc__footer-logo-text span {
   color: var(--text-gray);
 }
 

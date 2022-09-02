@@ -6,19 +6,25 @@ import logoSvg from '../public/logo.svg'
 export default function Layout ({
   children,
   title = 'Cine Centroamericano',
-  descriptionOg = 'Plataforma de películas de Cine Centroamericano',
+  descriptionOg = 'Plataforma de streaming con cine 100% centroamericano',
   typeOg = 'website',
-  imageOg = './og_image.jpg'
+  imageOg = './og_image.jpg',
+  urlOg = ''
 }) {
   return (
     <>
       <Head>
         <title>{title}</title>
+        <meta lang='es' />
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <meta name='description' content={descriptionOg} />
+        <meta name='og:url' content={`${process.env.NEXT_PUBLIC_URL_PAGE}${urlOg}`} />
+        {/* <meta name='robots' content='index, follow' /> */}
+        <meta property='og:description' content={descriptionOg} />
         <meta property='og:title' content={title} />
         <meta property='og:type' content={typeOg} />
         <meta property='og:image' content={imageOg} />
+        <link rel='canonical' href='https://cine-centroamericano.geovannygil.dev/' />
         {/* <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         {/* OG IMAGE */}
         {/*
@@ -44,8 +50,8 @@ export default function Layout ({
         <div>
           <Link href='/'>
             <a className='cc__footer-logo'>
-              <img src={logoSvg.src} alt='Logo Cine Centroamericano' />
-              <h1><span>CINE</span> CENTROAMERICANO</h1>
+              <img src={logoSvg.src} alt='Logo Cine Centroamericano - Footer' />
+              <h3 className='cc__footer-logo-text'><span>CINE</span> CENTROAMERICANO</h3>
             </a>
           </Link>
         </div>

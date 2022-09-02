@@ -40,6 +40,7 @@ const Pelicula = ({ movie }) => {
     <Layout
       title={`${movie.attributes.title} | Cine Centroamericano`}
       descriptionOg={`${movie.attributes.synopsis}`}
+      urlOg={`/movie/${movie.attributes.movie_uid}`}
       typeOg='video.movie'
       imageOg={movie.attributes.cover.data.attributes.url}
     >

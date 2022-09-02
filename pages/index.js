@@ -77,7 +77,7 @@ export default function Home ({ countries, movies, sliders }) {
           >
             {
               sliders.map(slider => (
-                <img src={slider.attributes.image.data.attributes.url} loading='lazy' alt={slider.attributes.title} key={slider.id} />
+                <img src={slider.attributes.image.data.attributes.url} loading='lazy' alt={slider.attributes.title || `Slider No.${slider.id}`} key={slider.id} />
               ))
             }
           </Slider>
