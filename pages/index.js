@@ -74,6 +74,16 @@ export default function Home ({ countries, movies, sliders }) {
             adaptiveHeight
             fade
             pauseOnHover
+            responsive={
+              [
+                {
+                  breakpoint: 768,
+                  settings: {
+                    dots: false
+                  }
+                }
+              ]
+            }
           >
             {
               sliders.map(slider => (
@@ -93,6 +103,17 @@ export default function Home ({ countries, movies, sliders }) {
               infinite={movies.length > 3}
               nextArrow={<MdOutlineArrowForwardIos />}
               prevArrow={<MdOutlineArrowBackIosNew />}
+              responsive={
+                [
+                  {
+                    breakpoint: 600,
+                    settings: {
+                      dots: true,
+                      arrows: false
+                    }
+                  }
+                ]
+              }
             >
               {
                 moviesData.map(movie =>
@@ -110,6 +131,7 @@ export default function Home ({ countries, movies, sliders }) {
           </div>
         </CardMain>
         <InfiniteScroll
+          key='InfiniteScrollMovies'
           pageStart={1}
           loadMore={GetMoreMoviesByCountries}
           hasMore={lengthLimit}
@@ -132,6 +154,20 @@ export default function Home ({ countries, movies, sliders }) {
                         arrows
                         nextArrow={<MdOutlineArrowForwardIos />}
                         prevArrow={<MdOutlineArrowBackIosNew />}
+                        responsive={
+                          [
+                            {
+                              breakpoint: 500,
+                              settings: {
+                                slidesToShow: 3,
+                                slidesToScroll: 1,
+                                infinite: movieBycountry.movies.length > 3,
+                                dots: true,
+                                arrows: false
+                              }
+                            }
+                          ]
+                        }
                       >
                         {
                           movieBycountry.movies.map(movie =>
@@ -162,15 +198,20 @@ export default function Home ({ countries, movies, sliders }) {
               slidesToShow={6}
               slidesToScroll={1}
               infinite={countries.length > 6}
-              responsive={[
-                {
-                  breakpoint: 1280,
-                  settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 1
+              responsive={
+                [
+                  {
+                    breakpoint: 600,
+                    settings: {
+                      slidesToShow: 3,
+                      slidesToScroll: 1,
+                      infinite: countries.length > 3,
+                      dots: true,
+                      arrows: false
+                    }
                   }
-                }
-              ]}
+                ]
+              }
               arrows
               nextArrow={<MdOutlineArrowForwardIos />}
               prevArrow={<MdOutlineArrowBackIosNew />}
