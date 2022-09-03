@@ -68,6 +68,7 @@ export default function Home ({ countries, movies, sliders }) {
             slidesToScroll={1}
             infinite={sliders.length > 1}
             dots
+            swipeToSlide
             arrows={false}
             autoplay
             autoplaySpeed={6000}
@@ -100,6 +101,7 @@ export default function Home ({ countries, movies, sliders }) {
               slidesToShow={3}
               slidesToScroll={1}
               arrows
+              swipeToSlide
               infinite={movies.length > 3}
               nextArrow={<MdOutlineArrowForwardIos />}
               prevArrow={<MdOutlineArrowBackIosNew />}
@@ -150,6 +152,7 @@ export default function Home ({ countries, movies, sliders }) {
                         className='slider-movies-grid-4'
                         slidesToShow={4}
                         infinite={movieBycountry.movies.length > 4}
+                        swipeToSlide
                         slidesToScroll={1}
                         arrows
                         nextArrow={<MdOutlineArrowForwardIos />}
@@ -196,6 +199,7 @@ export default function Home ({ countries, movies, sliders }) {
           <div className='container-movies'>
             <Slider
               slidesToShow={6}
+              swipeToSlide
               slidesToScroll={1}
               infinite={countries.length > 6}
               responsive={
