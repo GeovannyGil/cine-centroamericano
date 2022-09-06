@@ -682,7 +682,7 @@ button{
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   body{
-    background-color: red !important;
+    /* background-color: red !important; */
   }
   /* HEADER */
     .cc__Header {
@@ -904,7 +904,7 @@ button{
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   body {
-    background-color: green !important;
+    /* background-color: green !important; */
   }
   /* HEADER */
   .cc__Header {
@@ -1152,7 +1152,7 @@ button{
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
   body {
-      background-color: blue !important;
+      /* background-color: blue !important; */
   }
   .cc__Header {
     padding: 0 0 0 2em;
@@ -1284,7 +1284,7 @@ button{
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
   body {
-    background-color: gray !important;
+    /* background-color: gray !important; */
   }
   /* HEADER */
   .cc__Header {
@@ -1458,7 +1458,7 @@ button{
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
   body {
-    background-color: pink !important;
+    /* background-color: pink !important; */
   }
   .cc__Header {
     height: 12em;
