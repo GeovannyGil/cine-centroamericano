@@ -95,13 +95,6 @@ const CategoryCountry = ({ country, genres }) => {
     setPageLimit(true)
   }, [filter])
 
-  // useEffect(() => {
-  //   // FORMAT DATA API MOVIES
-  //   const data = formatMovies(movies.data)
-  //   setMoviesData(data)
-  //   setMoviesFilter(data)
-  // }, [])
-
   return (
     <Layout
       title={`${country.attributes.name} | Cine Centroamericano`}
@@ -116,8 +109,10 @@ const CategoryCountry = ({ country, genres }) => {
             src={`${country.attributes.banner.data.attributes.url}`}
             alt={`Imagen del banner de películas de ${country.attributes.name}`}
             priority
-            layout='fill'
-            objectFit='cover'
+            width={1200}
+            height={400}
+            layout='responsive'
+            // objectFit='cover'
           />
           <div className='cc__portada-country-text'>
             {
@@ -136,6 +131,20 @@ const CategoryCountry = ({ country, genres }) => {
             nextArrow={<MdOutlineArrowForwardIos />}
             prevArrow={<MdOutlineArrowBackIosNew />}
             infinite={genres.length > 5}
+            responsive={
+              [
+                {
+                  breakpoint: 600,
+                  settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    infinite: genres.length > 3
+                    // dots: true,
+                    // arrows: false
+                  }
+                }
+              ]
+            }
           >
             <span className={clsx(filter === 'all_movies' && 'active')} onClick={() => handleSetFilter('all_movies')}>Todos</span>
             {genres.map((gen) =>

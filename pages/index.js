@@ -63,6 +63,7 @@ export default function Home ({ countries, movies, sliders }) {
       <MainContent>
         <div className='cc__slider-movies'>
           <Slider
+            draggable
             className='cc__slider-home-content'
             slidesToShow={1}
             slidesToScroll={1}
@@ -101,6 +102,7 @@ export default function Home ({ countries, movies, sliders }) {
               slidesToShow={3}
               slidesToScroll={1}
               arrows
+              draggable
               swipeToSlide
               infinite={movies.length > 3}
               nextArrow={<MdOutlineArrowForwardIos />}
@@ -155,6 +157,7 @@ export default function Home ({ countries, movies, sliders }) {
                         swipeToSlide
                         slidesToScroll={1}
                         arrows
+                        draggable
                         nextArrow={<MdOutlineArrowForwardIos />}
                         prevArrow={<MdOutlineArrowBackIosNew />}
                         responsive={
@@ -199,6 +202,7 @@ export default function Home ({ countries, movies, sliders }) {
           <div className='container-movies'>
             <Slider
               slidesToShow={6}
+              draggable
               swipeToSlide
               slidesToScroll={1}
               infinite={countries.length > 6}

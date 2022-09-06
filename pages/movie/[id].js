@@ -50,7 +50,9 @@ const Pelicula = ({ movie }) => {
             <Image
               src={movieData.cover}
               // className='cc__img-movie'
-              layout='fill'
+              layout='responsive'
+              height={810}
+              width={546}
               objectPosition='center'
               objectFit='contain'
               priority

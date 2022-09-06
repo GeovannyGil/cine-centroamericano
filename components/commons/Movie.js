@@ -10,9 +10,11 @@ export const Movie = ({ id, movieUid, title, imageUrl, priority = false }) => {
         <Image
           src={imageUrl}
           // className='cc__img-movie'
-          layout='fill'
+          height={810}
+          width={546}
+          layout='responsive'
           objectPosition='center'
-          objectFit='cover'
+          // objectFit='cover'
           // loading='lazy'
           alt={`Poster de la película ${title}`}
           priority={priority}
