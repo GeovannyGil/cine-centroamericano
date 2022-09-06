@@ -12,7 +12,7 @@ export default function ModalTrailer ({ link, title, root }) {
   }
 
   return (
-    <Modal title={title} root={root}>
+    <Modal title='' root={root}>
       <iframe
         src={`https://www.youtube.com/embed/${youtubeParser(link)}`}
         title={`Trailes de la película ${title}`}

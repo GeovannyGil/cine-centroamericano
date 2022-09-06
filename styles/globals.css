@@ -1094,7 +1094,7 @@ button{
     margin: 0 auto;
     align-items: center;
   }
-
+  
   .cc__movie-container .cc__movie-sinopsis .cc__container-movies-head h2 {
     font-size: 3em;
     padding: 0;
@@ -1231,6 +1231,7 @@ button{
   }
   /* MOVIE INDIVIDUAL PAGE */
   /* TODO:  */
+
   .cc__movie-container .cc__movie-sinopsis .cc__container-movies-head h2 {
     font-size: 4em;
     padding: 0.1em 0.3em;
@@ -1591,6 +1592,17 @@ button{
 
   /* TODO:  */
   /* INDIVIDUAL MOVIES */
+  /* .cc__movie-container {
+    display: flex;
+    width: 90%;
+    margin: 1em auto;
+    gap: 1em;
+    align-items: center;
+  } */
+
+  .cc__movie-container .cc__movie-portada {
+    width: 400px;
+  }
   .cc__container-movies.cc__movie-info {
     margin: 2em 0;
   }
@@ -1618,17 +1630,3 @@ button{
     font-size: 1.5em;
   }
 }
-
-
-
-/* @media (min-width: 1024px) {
-  .cc__movie-contain-image {
-    height: 600px;
-    width: 100%;
-  }
-
-  .slider-movies-grid-4 .cc__movie-contain-image {
-    height: 500px;
-    width: 100%;
-  }
-} */

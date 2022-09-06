@@ -9,7 +9,7 @@ export default function ModalTrailer ({ link, title, root }) {
     return match[2]
   }
   return (
-    <Modal title={title} root={root}>
+    <Modal title='' root={root}>
       <Vimeo
         video={vimeoID(link)}
         autoplay
