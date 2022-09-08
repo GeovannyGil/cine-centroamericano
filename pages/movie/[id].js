@@ -5,6 +5,7 @@ import { openModalMovie, openModalTrailer } from '../../components/Modals/openMo
 import { fetcher } from '../../libs'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { BiPlay } from 'react-icons/bi'
 import ReactMarkdown from 'react-markdown'
 
 const Pelicula = ({ movie }) => {
@@ -66,8 +67,8 @@ const Pelicula = ({ movie }) => {
               </ReactMarkdown>
             </CardMain>
             <div className='cc__movie-btn-actions'>
-              <button onClick={() => handleOpenModalMovie(movieData.link_movie, movieData.title)} className='cc__btn cc__btn-third-color'>▶</button>
-              <button disabled={movieData.link_trailer === null} onClick={() => handleOpenModalTrailer(movieData.link_trailer, movieData.title)} className='cc__btn cc__btn-secondary-color'>ver trailer</button>
+              <button onClick={() => handleOpenModalMovie(movieData.link_movie, movieData.title)} className='cc__btn-third-color cc__btn-play-video'><BiPlay /></button>
+              <button disabled={movieData.link_trailer === null} onClick={() => handleOpenModalTrailer(movieData.link_trailer, movieData.title)} className='cc__btn-secondary-color'>ver trailer</button>
             </div>
           </div>
         </div>

@@ -608,6 +608,7 @@ button{
   grid-gap: 3em; */
 }
 .cc__movie-container .cc__movie-sinopsis .cc__movie-btn-actions button{
+  font-family: var(--font-family-Bebas);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -904,9 +905,12 @@ button{
     }
 
     .cc__movie-container .cc__movie-sinopsis .cc__movie-btn-actions button {
-      /* padding: 0.5em 1em; */
-      font-size: 1.8em;
-      height: 1em;
+      width: 100%;
+      font-size: 2.5em;
+      height: 60px;
+    }
+    .cc__movie-container .cc__movie-sinopsis .cc__movie-btn-actions .cc__btn-play-video {
+      font-size: 4em;
     }
 
     .cc__container-movies.cc__movie-info{
@@ -1148,13 +1152,18 @@ button{
 
   .cc__movie-container .cc__movie-sinopsis .cc__movie-btn-actions {
     grid-template-columns: 1fr 1fr;
-    grid-gap: 0.5em;
+    grid-gap: 1em;
   }
 
   .cc__movie-container .cc__movie-sinopsis .cc__movie-btn-actions button {
-    font-size: 1.5em;
+    width: 100%;
+    font-size: 2.5em;
+    height: 60px;
   }
 
+  .cc__movie-container .cc__movie-sinopsis .cc__movie-btn-actions .cc__btn-play-video {
+    font-size: 4em;
+  }
   .cc__container-movies.cc__movie-info {
     margin: 2em 1.5em;
   }
@@ -1286,15 +1295,15 @@ button{
     margin-bottom: 4em;
   }
 
-  .cc__movie-container .cc__movie-sinopsis .cc__movie-btn-actions {
-    grid-gap: 0.5em;
-  }
-
   .cc__movie-container .cc__movie-sinopsis .cc__movie-btn-actions button {
-    padding: 0.5em 1em;
-    font-size: 1.8em;
+    width: 100%;
+    font-size: 2em;
+    height: 60px;
   }
 
+  .cc__movie-container .cc__movie-sinopsis .cc__movie-btn-actions .cc__btn-play-video {
+    font-size: 3em;
+  }
   .cc__container-movies.cc__movie-info {
     margin: 2em 1.5em;
   }
