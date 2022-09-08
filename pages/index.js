@@ -79,7 +79,7 @@ export default function Home ({ countries, movies, sliders }) {
             responsive={
               [
                 {
-                  breakpoint: 768,
+                  breakpoint: 992,
                   settings: {
                     dots: false
                   }
@@ -208,6 +208,16 @@ export default function Home ({ countries, movies, sliders }) {
               infinite={countries.length > 6}
               responsive={
                 [
+                  {
+                    breakpoint: 768,
+                    settings: {
+                      slidesToShow: 4,
+                      slidesToScroll: 1,
+                      infinite: countries.length > 4,
+                      dots: true,
+                      arrows: false
+                    }
+                  },
                   {
                     breakpoint: 600,
                     settings: {

@@ -383,6 +383,7 @@ button{
 .cc__movie{
   cursor: pointer;
 }
+/* TODO: */
 .cc__movie:hover .cc__contain-title-movie .marquee-text{
   color: var(--text-color);
 }
@@ -403,15 +404,43 @@ button{
 }
 .cc__contain-title-movie{
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  flex-direction: column;
 }
-.cc__contain-title-movie .marquee-text{
+
+.marquee-text .overlay::before,
+.marquee-text .overlay::after {
+  background: linear-gradient(to right, rgba(31, 31, 31, 1),
+      rgba(31, 31, 31, 0));
+  content: "";
+  height: 100%;
+  position: absolute;
+  width: var(--gradient-width);
+  z-index: 2;
+}
+
+.cc__movies-grid-category .marquee-text .overlay::before,
+.cc__movies-grid-category .marquee-text .overlay::after {
+  background: linear-gradient(to right, rgba(0, 0, 0, 1),
+      rgba(0, 0, 0, 0));
+  content: "";
+  height: 100%;
+  position: absolute;
+  width: var(--gradient-width);
+  z-index: 2;
+}
+.cc__contain-title-movie .marquee-text .marquee{
+  padding-right: 1em;
+}
+
+/* TODO: */
+.cc__contain-title-movie .marquee-text {
   font-family: var(--font-family-Bebas);
   color: var(--color-icons);
   text-transform: uppercase;
 }
+
 .cc__contain-title-movie a{
   display: flex;
   justify-content: center;
@@ -771,15 +800,16 @@ button{
     }
     .cc__contain-title-movie {
       margin-top: 0.5em;
-      font-size: 0.5em;
       gap: 0.1em;
     }
+    /* TODO: */
     .cc__contain-title-movie .marquee-text {
-      font-size: 3.2em;
+      font-size: 1.5em;
     }
-
     .cc__contain-title-movie a {
       font-size: 1.5em;
+      padding: 0.15em 0.8em;
+      /* margin-left: 5px; */
     }
     /* CARD COUNTRY */
     .country-card {
@@ -839,15 +869,15 @@ button{
       grid-template-columns: repeat(3, minmax(0, 1fr));
       margin: 0.5em;
     }
-    .cc__movies-grid-category .cc__movie .cc__contain-title-movie .marquee-text{
-      font-size: 2.5em;
+    /* TODO: */
+    /* .cc__movies-grid-category .cc__movie .cc__contain-title-movie .marquee-text{
+      font-size: 1.5em;
     }
     .cc__movies-grid-category .cc__movie .cc__contain-title-movie a{
       font-size: 1.5em;
-    }
+    } */
 
     /* MOVIE INDIVIDUAL PAGE */
-    /* TODO:  */
     .cc__movie-container {
       width: 90%;
       margin: 1em auto;
@@ -1001,34 +1031,14 @@ button{
     gap: 0.3em;
   }
 
+  /* TODO: */
   .cc__contain-title-movie .marquee-text {
-    font-size: 3em;
-  }
-
-  .marquee-text .overlay::before,
-  .marquee-text .overlay::after {
-    background: linear-gradient(to right, rgba(31, 31, 31, 1),
-      rgba(31, 31, 31, 0));
-    content: "";
-    height: 100%;
-    position: absolute;
-    width: var(--gradient-width);
-    z-index: 2;
-  }
-
-  .cc__movies-grid-category  .marquee-text .overlay::before,
-    .cc__movies-grid-category .marquee-text .overlay::after {
-    background: linear-gradient(to right, rgba(0, 0, 0, 1),
-      rgba(0, 0, 0, 0));
-    content: "";
-    height: 100%;
-    position: absolute;
-    width: var(--gradient-width);
-    z-index: 2;
+    font-size: 2.5em;
   }
 
   .cc__contain-title-movie a {
-    font-size: 2em;
+    font-size: 2.5em;
+    padding: 0.15em .7em;
   }
 
   /* CARD COUNTRY */
@@ -1101,16 +1111,17 @@ button{
     margin: 0.5em;
   }
 
-  .cc__movies-grid-category .cc__movie .cc__contain-title-movie .marquee-text {
+  /* TODO: */
+  /* .cc__movies-grid-category .cc__movie .cc__contain-title-movie .marquee-text {
     font-size: 2.5em;
   }
 
   .cc__movies-grid-category .cc__movie .cc__contain-title-movie a {
     font-size: 1.5em;
-  }
+    padding: 0.15em .7em;
+  } */
 
   /* MOVIE INDIVIDUAL PAGE */
-  /* TODO:  */
   .cc__movie-container {
     width: 95%;
     padding: 2em;
@@ -1202,12 +1213,14 @@ button{
     padding: 2.5em 2.5em;
   }
 
+  /* TODO: */
   .cc__contain-title-movie .marquee-text {
     font-size: 3em;
   }
 
   .cc__contain-title-movie a {
-    font-size: 2em;
+    font-size: 3em;
+    padding: 0.15em .8em;
   }
 
   .slick-next {
@@ -1247,13 +1260,14 @@ button{
     margin: 1em;
   }
 
-  .cc__movies-grid-category .cc__movie .cc__contain-title-movie .marquee-text {
+  /* TODO: */
+  /* .cc__movies-grid-category .cc__movie .cc__contain-title-movie .marquee-text {
     font-size: 2.5em;
   }
 
   .cc__movies-grid-category .cc__movie .cc__contain-title-movie a {
     font-size: 1.5em;
-  }
+  } */
   /* MOVIE INDIVIDUAL PAGE */
   /* TODO:  */
 
@@ -1412,12 +1426,13 @@ button{
   .cc__contain-title-movie {
     margin-top: 1em;
   }
+  /* TODO: */
   .cc__contain-title-movie .marquee-text {
-    font-size: 3.2em;
+    font-size: 3.5em;
   }
   .cc__contain-title-movie a {
-    font-size: 2.5em;
-    padding: 0.5em 2em;
+    font-size: 4em;
+    padding: 0.15em 0.8em;
   }
   .slick-next {
     right: -10% !important;
@@ -1463,13 +1478,14 @@ button{
     top: 25% !important;
     transform: scale(1) !important;
   }
-  .cc__movies-grid-category .cc__movie .cc__contain-title-movie .marquee-text {
+  /* TODO: */
+  /* .cc__movies-grid-category .cc__movie .cc__contain-title-movie .marquee-text {
     font-size: 3em;
   }
 
   .cc__movies-grid-category .cc__movie .cc__contain-title-movie a {
     font-size: 2em;
-  }
+  } */
 
   /* TODO:  */
   .cc__movie-container {
@@ -1607,15 +1623,23 @@ button{
     top: 30% !important;
     transform: scale(1.5) !important;
   }
+  /* TODO: */
+  .cc__contain-title-movie .marquee-text {
+    font-size: 3em;
+  }
+
+  .cc__contain-title-movie a {
+    font-size: 3em;
+  }
+/*
   .cc__movies-grid-category .cc__movie .cc__contain-title-movie .marquee-text {
     font-size: 2.5em;
-  }
+  } */
 
   /* .cc__movies-grid-category .cc__movie .cc__contain-title-movie a {
     font-size: 5em;
   } */
 
-  /* TODO:  */
   /* INDIVIDUAL MOVIES */
   /* .cc__movie-container {
     display: flex;

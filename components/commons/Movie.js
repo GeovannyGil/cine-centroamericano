@@ -25,8 +25,10 @@ export const Movie = ({ id, movieUid, title, imageUrl, priority = false }) => {
       <div className='cc__contain-title-movie'>
         <Marquee
           className='marquee-text'
-          gradientWidth={50}
-          speed={75}
+          gradient
+          gradientWidth={10}
+          speed={30}
+          delay={2}
         >
           {title}
         </Marquee>
