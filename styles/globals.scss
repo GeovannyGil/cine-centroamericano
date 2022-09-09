@@ -1,41 +1,10 @@
 /* PREFIJO CC */
-
-/* FONTS */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap');
-
-/* VARIABLES */
-:root {
-  --background-color: #000000;
-  /* --background-color: #1E1E1E; */
-  --background-color-barraPanels: #373737;
-  --background-color-titlePanel: #FFC439;
-  --background-color-subBarraPanels: #444648;
-  --background-color-panels: #1F1F1F;
-  --color-icons: #878789;
-  --text-color: #FFFFFF;
-  --text-gray: #AAAAAA;
-  --title-color: #FFFFFF;
-  --subtitles-color: #8E8E90;
-  --color-gray-light: #444648;
-  --color-gray-dark: #1F1F1F;
-  --primary-color: #E2C14F;
-  --primary-color-disabled: #e6cd75;
-  --primary-color-hover: #be9f2c;
-  --secondary-color: #F94C66;
-  --secondary-color-disabled: #aeaeae;
-  --secondary-color-hover: #d42f48;
-  --third-color: #53BF9D;
-  --third-color-disabled: #a9e0b0;
-  --third-color-hover: #34a782;
-  --font-family-Bebas: 'Bebas Neue', sans-serif;
-  --font-family-Montserrat: 'Montserrat', sans-serif;
-}
-
+@import './vars';
 html,
 body {
-  font-family: var(--font-family-Montserrat);
-  background-color: var(--background-color);
-  color: var(--text-color);
+  font-family: $font-family-Montserrat;
+  background-color: $background-color;
+  color: $text-color;
   font-size: 12px;
   height: 100vh;
 }
@@ -60,51 +29,51 @@ h4{
 }
 
 h1{
-  font-family: var(--font-family-Bebas);
+  font-family: $font-family-Bebas;
   font-size: 5rem;
   font-weight: 700;
-  color: var(--title-color);
+  color: $title-color;
 }
 
 h2{
-  font-family: var(--font-family-Bebas);
+  font-family: $font-family-Bebas;
   font-size: 3rem;
   font-weight: 700;
-  color: var(--title-color);
+  color: $title-color;
 }
 
 h3{
-  font-family: var(--font-family-Bebas);
+  font-family: $font-family-Bebas;
   font-size: 2rem;
   font-weight: 700;
-  color: var(--title-color);
+  color: $title-color;
 }
 h4{
-  font-family: var(--font-family-Montserrat);
+  font-family: $font-family-Montserrat;
   font-size: 1.5rem;
   font-weight: 500;
-  color: var(--title-color);
+  color: $title-color;
 }
 
 p{
-  font-family: var(--font-family-Montserrat);
+  font-family: $font-family-Montserrat;
   font-size: 1.2rem;
   font-weight: 400;
-  color: var(--text-color);
+  color: $text-color;
 }
 
 /* FONTs COLORS */
 .cc__text-primary {
-  color: var(--primary-color);
+  color: $primary-color;
 }
 .cc__text-secondary {
-  color: var(--secondary-color);
+  color: $secondary-color;
 }
 .cc__text-third {
-  color: var(--third-color);
+  color: $third-color;
 }
 .cc__text-gray{
-  color: var(--text-gray);
+  color: $text-gray;
 }
 
 /* BUTTONS */
@@ -116,54 +85,54 @@ button{
 }
 .cc__btn{
   padding: 0.5em 5em;
-  font-family: var(--font-family-Bebas);
+  font-family: $font-family-Bebas;
 }
 
 /* PRIMARY BUTTON */
 .cc__btn-primary-color{
-  background-color: var(--primary-color);
-  color: var(--text-color);
+  background-color: $primary-color;
+  color: $text-color;
 }
 .cc__btn-primary-color:disabled{
-  background-color: var(--primary-color-disabled);
+  background-color: $primary-color-disabled;
   cursor: not-allowed;
 }
 .cc__btn-primary-color:disabled:hover{
-  background-color: var(--primary-color-disabled);
+  background-color: $primary-color-disabled;
 }
 .cc__btn-primary-color:hover{
-  background-color: var(--primary-color-hover);
+  background-color: $primary-color-hover;
 }
 
 /* SECONDARY BUTTON */
 .cc__btn-secondary-color{
-  background-color: var(--secondary-color);
-  color: var(--text-color);
+  background-color: $secondary-color;
+  color: $text-color;
 }
 .cc__btn-secondary-color:disabled {
-  background-color: var(--secondary-color-disabled);
+  background-color: $secondary-color-disabled;
   cursor: not-allowed;
 }
 .cc__btn-secondary-color:disabled:hover {
-  background-color: var(--secondary-color-disabled);
+  background-color: $secondary-color-disabled;
 }
 .cc__btn-secondary-color:hover{
-  background-color: var(--secondary-color-hover);
+  background-color: $secondary-color-hover;
 }
 
 /* THIRD BUTTON */
 .cc__btn-third-color{
-  background-color: var(--third-color);
+  background-color: $third-color;
 }
 .cc__btn-third-color:disabled {
-  background-color: var(--third-color-disabled);
+  background-color: $third-color-disabled;
   cursor: not-allowed;
 }
 .cc__btn-third-color:disabled:hover {
-  background-color: var(--third-color-disabled);
+  background-color: $third-color-disabled;
 }
 .cc__btn-third-color:hover{
-  background-color: var(--third-color-hover);
+  background-color: $third-color-hover;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -182,7 +151,7 @@ button{
   position: sticky;
   top: 0;
   z-index: 99; */
-  background-color: var(--background-color);
+  background-color: $background-color;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -213,12 +182,12 @@ button{
   font-weight: 500;
 }
 .cc__logo-nav .cc__logo-text span {
-  color: var(--text-gray);
+  color: $text-gray;
 }
 
 .cc__Header .cc__menu{
   margin-right: 0.5em;
-  color: var(--text-color);
+  color: $text-color;
   font-size: 6em;
   font-weight: 500;
   cursor: pointer;
@@ -230,15 +199,15 @@ button{
   justify-content: center;
   align-items: center;
   gap: 1.6em;
-  border-left: 1px solid var(--text-gray);
-  font-family: var(--font-family-Bebas);
-  color: var(--text-gray);
+  border-left: 1px solid $text-gray;
+  font-family: $font-family-Bebas;
+  color: $text-gray;
   height: 100%;
   padding: 0.5em 1.8em;
 }
 
 .cc__btn-login:hover{
-  background-color: var(--color-gray-dark);
+  background-color: $color-gray-dark;
 }
 
 .cc__btn-login .cc__btn-icon{
@@ -268,10 +237,10 @@ button{
 }
 
 .cc__footer-logo-text {
-  font-family: var(--font-family-Bebas);
+  font-family: $font-family-Bebas;
   font-size: 5rem;
   font-weight: 700;
-  color: var(--title-color);
+  color: $title-color;
 }
 
 .cc__footer-logo-text {
@@ -280,11 +249,11 @@ button{
   font-weight: 500;
 }
 .cc__footer-logo-text span {
-  color: var(--text-gray);
+  color: $text-gray;
 }
 
 .cc__footer-info{
-  background-color: var(--background-color-barraPanels);
+  background-color: $background-color-barraPanels;
   height: 100%;
   display: flex;
   gap: 1em;
@@ -302,13 +271,13 @@ button{
 }
 
 .cc__square-main{
-  background-color: var(--background-color-barraPanels);
+  background-color: $background-color-barraPanels;
   width: 100%;
   height: 4em;
 }
 /* .cc__Main::after {
   top: 0;
-  background-color: var(--background-color-subBarraPanels);
+  background-color: $background-color-subBarraPanels;
   width: 100%;
   height: 6em;
   border-top: 10px solid transparent;
@@ -330,12 +299,12 @@ button{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-gray-light);
+    background-color: $color-gray-light;
     color: #878789;
     z-index: 9;
 }
 .cc__btn-search:hover{
-    background-color: var(--color-gray-dark);
+    background-color: $color-gray-dark;
 }
 
 /* Home View */
@@ -351,12 +320,12 @@ button{
   margin: 0 2em;
 }
 .cc__slider-home-content .slick-dots li button:before{
-    color: var(--color-icons);
+    color: $color-icons;
     font-size: 22px;
 }
 
 .cc__slider-home-content .slick-dots li.slick-active button:before{
-    color: var(--secondary-color);
+    color: $secondary-color;
 }
 
 .cc__slider-movies img {
@@ -367,11 +336,11 @@ button{
 
 /* CONTAINER MOVIES */
 .cc__container-movies{
-  background-color: var(--background-color-panels);
+  background-color: $background-color-panels;
 }
 
 .cc__container-movies-head{
-  background-color: var(--background-color-barraPanels);
+  background-color: $background-color-barraPanels;
 }
 
 .cc__container-movies-head h2{
@@ -385,7 +354,7 @@ button{
 }
 /* TODO: */
 .cc__movie:hover .cc__contain-title-movie .marquee-text{
-  color: var(--text-color);
+  color: $text-color;
 }
 
 .cc__movie-contain-image{
@@ -416,7 +385,6 @@ button{
   content: "";
   height: 100%;
   position: absolute;
-  width: var(--gradient-width);
   z-index: 2;
 }
 
@@ -427,7 +395,6 @@ button{
   content: "";
   height: 100%;
   position: absolute;
-  width: var(--gradient-width);
   z-index: 2;
 }
 .cc__contain-title-movie .marquee-text .marquee{
@@ -436,8 +403,8 @@ button{
 
 /* TODO: */
 .cc__contain-title-movie .marquee-text {
-  font-family: var(--font-family-Bebas);
-  color: var(--color-icons);
+  font-family: $font-family-Bebas;
+  color: $color-icons;
   text-transform: uppercase;
 }
 
@@ -445,7 +412,7 @@ button{
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--color-gray-dark);
+  color: $color-gray-dark;
   text-align: center;
 }
 
@@ -474,12 +441,12 @@ button{
   bottom: -20px !important;
 }
 .slick-dots li button:before {
-  color: var(--color-icons) !important;
+  color: $color-icons !important;
   /* font-size: 22px; */
 }
 
 .slick-dots li.slick-active button:before {
-  color: var(--secondary-color) !important;
+  color: $secondary-color !important;
 }
 
 .slick-next,
@@ -500,12 +467,12 @@ button{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--background-color-subBarraPanels);
+  background-color: $background-color-subBarraPanels;
   cursor: pointer;
   margin: 0 auto;
 }
 .country-card:hover{
-  background-color: var(--third-color);
+  background-color: $third-color;
 }
 
 /* ------------------------ CATEGORIA POR PAISES --------------------------- */
@@ -522,8 +489,8 @@ button{
 .cc__portada-country-text{
   bottom: 0;
   left: 0;
-  background-color: var(--background-color-panels);
-  font-family: var(--font-family-Bebas);
+  background-color: $background-color-panels;
+  font-family: $font-family-Bebas;
   position: absolute;
 }
 
@@ -533,15 +500,15 @@ button{
   top: 0;
   z-index: 9;
   width: 100%;
-  background-color: var(--background-color-panels);
+  background-color: $background-color-panels;
   padding: 2em;
   margin-top: 2em;
 }
 
 .cc__movies-categories span{
   text-transform: uppercase;
-  font-family: var(--font-family-Bebas);
-  color: var(--text-gray);
+  font-family: $font-family-Bebas;
+  color: $text-gray;
   cursor: pointer;
   display: inline-block;
   text-align: center;
@@ -549,11 +516,11 @@ button{
 }
 
 .cc__movies-categories span:hover {
-  color: var(--text-color);
+  color: $text-color;
 }
 
 .cc__movies-categories span.active {
-  color: var(--text-color);
+  color: $text-color;
 }
 
 .cc__movies-categories span.active::before {
@@ -598,7 +565,7 @@ button{
 }
 
 .cc__movie-container .cc__movie-sinopsis .cc__container-movies p{
-  font-family: var(--font-family-Montserrat);
+  font-family: $font-family-Montserrat;
   line-height: 1.6em;
 }
 
@@ -608,7 +575,7 @@ button{
   grid-gap: 3em; */
 }
 .cc__movie-container .cc__movie-sinopsis .cc__movie-btn-actions button{
-  font-family: var(--font-family-Bebas);
+  font-family: $font-family-Bebas;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -629,13 +596,13 @@ button{
 .cc__movie-description .cc__movie-info label{
   /* font-size: 2em; */
   font-weight: 500;
-  font-family: var(--font-family-Montserrat);
+  font-family: $font-family-Montserrat;
 }
 
 .cc__movie-description .cc__movie-info span{
   /* font-size: 1.4em; */
   font-weight: 400;
-  font-family: var(--font-family-Montserrat);
+  font-family: $font-family-Montserrat;
 }
 
 .cc__movie-info .cc__container-movies-main{
@@ -654,7 +621,7 @@ button{
 .cc__container-spinner .cc__spinner-text{
   font-size: 2.5em;
   letter-spacing: 2px;
-  font-family: var(--font-family-Bebas);
+  font-family: $font-family-Bebas;
 }
 
 .cc__spinner {
@@ -704,7 +671,7 @@ button{
 }
 
 .cc__null-movies{
-  font-family: var(--font-family-Bebas);
+  font-family: $font-family-Bebas;
   font-size: 4em;
   margin: 0 auto;
   text-align: center;
@@ -720,7 +687,7 @@ button{
   /* HEADER */
     .cc__Header {
       height: 6em;
-      padding: 0 0 0 2em;
+      padding: 0 0 0 1.5em;
     }
     .cc__logo-nav {
       margin-left: 0;
@@ -728,25 +695,26 @@ button{
       gap: 0.5em;
     }
     .cc__logo-nav .cc__logo-img {
-      height: 100%;
+      height: 70%;
     }
     .cc__logo-nav .cc__logo-text {
-      font-size: 1.7em;
+      font-size: 1.2em;
     }
     .cc__Header .cc__menu {
-      margin-right: 0.5em;
+      margin-right: 0.1em;
       font-size: 2.2em;
     }
 
     .cc__btn-login {
-      font-size: 1.4em;
-      gap: 0.5em;
+      font-size: 1.2em;
+      gap: 5px;
       height: 100%;
+      text-align: center;
       padding: 0.3em 1em;
     }
 
     .cc__btn-login .cc__btn-icon {
-      font-size: 1.3em;
+      font-size: 1.5em;
     }
     /* MAIN */
     .cc__Main{
@@ -762,13 +730,13 @@ button{
     }
     /* FOOTER */
     .cc__footer-logo {
-      height: 5em;
+      height: 4em;
       gap: 1em;
       margin-bottom: 2em;
     }
 
     .cc__footer-logo-text {
-      font-size: 3em;
+      font-size: 2.5em;
     }
 
     .cc__footer-info {
@@ -847,7 +815,7 @@ button{
       /* bottom: -20px; */
       bottom: -15%;
       left: 46%;
-      border-top: 4px solid var(--primary-color);
+      border-top: 4px solid $primary-color;
       border-bottom: 4px solid transparent;
       border-left: 4px solid transparent;
       border-right: 4px solid transparent;
@@ -1090,7 +1058,7 @@ button{
     /* bottom: -20px; */
     bottom: -20%;
     left: 45%;
-    border-top: 6px solid var(--primary-color);
+    border-top: 6px solid $primary-color;
     border-bottom: 6px solid transparent;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
@@ -1468,7 +1436,7 @@ button{
     /* bottom: -20px; */
     bottom: -21%;
     transform: translateX(-0%);
-    border-top: 7px solid var(--primary-color);
+    border-top: 7px solid $primary-color;
     border-bottom: 7px solid transparent;
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
@@ -1615,7 +1583,7 @@ button{
     /* bottom: -20px; */
     left: 47%;
     bottom: -18%;
-    border-top: 8px solid var(--primary-color);
+    border-top: 8px solid $primary-color;
     border-bottom: 8px solid transparent;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;

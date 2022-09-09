@@ -34,6 +34,10 @@ export default function Home ({ countries, movies, sliders }) {
       }
       setFetching(true)
       try {
+        if (lengthCountries > countries.length) {
+          setLengthLimit(false)
+          return
+        }
         const { movies } = await fetchMoreMovies({
           country: countries[lengthCountries - 1].uid,
           pageSize: 10
@@ -147,10 +151,11 @@ export default function Home ({ countries, movies, sliders }) {
                 return (
                   <CardMain
                     title={`Películas de ${movieBycountry.country.name}`}
-                    key={`${movieBycountry.country.uid}-slider`}
+                    key={`${movieBycountry.country.uid}-cardMain`}
                   >
                     <div className='container-movies'>
                       <Slider
+                        key={`${movieBycountry.country.uid}-slider`}
                         className='slider-movies-grid-4'
                         slidesToShow={4}
                         infinite={movieBycountry.movies.length > 4}

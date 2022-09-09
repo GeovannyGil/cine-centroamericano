@@ -2,15 +2,19 @@ import Head from 'next/head'
 import { BiMenu, BiUser } from 'react-icons/bi'
 import Link from 'next/link'
 import logoSvg from '../public/logo.svg'
+import { useState } from 'react'
+import Menu from './Menu/Menu'
 
 export default function Layout ({
   children,
   title = 'Cine Centroamericano',
   descriptionOg = 'Plataforma de streaming con cine 100% centroamericano',
   typeOg = 'website',
-  imageOg = './og_image.jpg',
+  imageOg = './public/og_image.jpg',
   urlOg = ''
 }) {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
     <>
       <Head>
@@ -30,6 +34,7 @@ export default function Layout ({
         <link rel='icon' type='image/png' sizes='16x16' href='./favicon-16x16.png' />
         <link rel='manifest' href='./site.webmanifest' />
       </Head>
+      <Menu isOpen={isOpen} onChange={setIsOpen} />
       <header className='cc__Header'>
         <Link href='/'>
           <a className='cc__logo-nav'>
@@ -38,7 +43,7 @@ export default function Layout ({
           </a>
         </Link>
         <nav>
-          <BiMenu className='cc__menu' />
+          <BiMenu onClick={() => setIsOpen(true)} className='cc__menu' />
           <button className='cc__btn-login button-effect-a'>INICIAR SESIÓN <BiUser className='cc__btn-icon' /></button>
         </nav>
       </header>

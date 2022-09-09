@@ -1,0 +1,34 @@
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/* VARIABLES */
+$background-color: #000000;
+/* $background-color: #1E1E1E; */
+$background-color-barraPanels: #373737;
+$background-color-titlePanel: #FFC439;
+$background-color-subBarraPanels: #444648;
+$background-color-panels: #1F1F1F;
+$color-icons: #878789;
+$text-color: #FFFFFF;
+$text-gray: #AAAAAA;
+$title-color: #FFFFFF;
+$subtitles-color: #8E8E90;
+$color-gray-light: #444648;
+$color-gray-dark: #1F1F1F;
+$primary-color: #E2C14F;
+$primary-color-disabled: #e6cd75;
+$primary-color-hover: #be9f2c;
+$secondary-color: #F94C66;
+$secondary-color-disabled: #aeaeae;
+$secondary-color-hover: #d42f48;
+$third-color: #53BF9D;
+$third-color-disabled: #a9e0b0;
+$third-color-hover: #34a782;
+$font-family-Bebas: 'Bebas Neue', sans-serif;
+$font-family-Montserrat: 'Montserrat', sans-serif;
+
+/* MEDIA QUERIES */
+$breakpoint-mobile: 600px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 992px;
+$breakpoint-tablet: 1200px;
