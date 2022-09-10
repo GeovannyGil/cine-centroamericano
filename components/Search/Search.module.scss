@@ -1,0 +1,193 @@
+@use '../../styles/vars';
+@mixin respond($breakpoint) {
+  @if $breakpoint == mobileMax {
+    @media (max-width: vars.$breakpoint-mobile) { @content; }
+  }
+  @if $breakpoint == mobileMin {
+    @media (min-width: vars.$breakpoint-mobile) { @content; }
+  }
+  @if $breakpoint == table {
+    @media (min-width: vars.$breakpoint-tablet) { @content; }
+  }
+  @if $breakpoint == desktop {
+    @media (min-width: vars.$breakpoint-desktop) { @content; }
+  }
+  @if $breakpoint == screenLarge {
+    @media (min-width: vars.$breakpoint-screen-large) { @content; }
+  }
+}
+.search_container{
+    overflow: auto;
+    position: fixed;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    // opacity color
+    background-color: rgba(vars.$background-color-barraPanels, 0.95);
+    transform: translateY(100%);
+    transition: all .45s;
+    &.openSearch {
+      transform: translateY(0);
+    }
+
+    @include respond(mobileMax) {
+      padding: 0 1em;
+    }
+    @include respond(mobileMin) {
+      padding: 0 3em;
+    }
+    @include respond(table) {
+      padding: 0;
+    }
+
+    form{
+      display: contents;
+    }
+
+    .btn_closeSearch {
+      font-size: 3em;
+      font-weight: 800;
+      position: absolute;
+      top: 40px;
+      right: 120px;
+      cursor: pointer;
+      color: vars.$background-color-subBarraPanels;
+      color: vars.$text-color;
+
+      &:hover {
+        color: vars.$subtitles-color;
+      }
+
+      @include respond(mobileMax) {
+        font-size: 2.5em;
+        top: 20px;
+        right: 30px;
+      }
+      @include respond(mobileMin) {
+        font-size: 2.5em;
+        top: 20px;
+        right: 30px;
+      }
+      @include respond(table) {
+        font-size: 2.5em;
+        top: 30px;
+        right: 40px;
+      }
+    }
+
+    .cc__search_container_modal{
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      background-color: vars.$background-search;
+      height: fit-content;
+      gap: 1em;
+
+      @include respond(mobileMax) {
+        margin-top: 7em;
+        width: 100%;
+      }
+      @include respond(mobileMin) {
+        margin-top: 7em;
+        width: 100%;
+      }
+      @include respond(table) {
+        width: 80%;
+        margin-top: 8em;
+      }
+      @include respond(desktop) {
+        width: 60%;
+        margin-top: 8em;
+      }
+      input{
+        background-color: transparent;
+        border: none;
+        color: vars.$text-color;
+        font-family: vars.$font-family-Bebas;
+        font-size: 50px;
+        width: 100%;
+        padding-left: 1em;
+        // &:hover{
+        //   border-bottom: 1px solid vars.$text-color;
+        // }
+        &::placeholder{
+          color: rgba(vars.$text-color, 0.5);
+          font-family: vars.$font-family-Bebas;
+        }
+
+        &:focus{
+          outline: none;
+        }
+
+        @include respond(mobileMax) {
+          font-size: 2em;
+          width: 100%;
+        }
+        @include respond(mobileMin) {
+          font-size: 3em;
+          width: 100%;
+        }
+      }
+
+      .btn_search{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: vars.$color-gray-light;
+        color: #878789;
+        z-index: 9;
+        &:hover {
+          background-color: vars.$color-gray-dark;
+        }
+        @include respond(mobileMax) {
+          font-size: 2.5em;
+          height: 60px;
+          width: 90px;
+        }
+        @include respond(mobileMin) {
+          font-size: 3em;
+          height: 80px;
+          width: 120px;
+        }
+        @include respond(table) {
+          font-size: 4em;
+          height: 120px;
+          width: 180px;
+        }
+        @include respond(desktop) {
+          font-size: 4em;
+          height: 140px;
+          width: 220px;
+        }
+      }
+    }
+
+    .movies_result_container{
+      display: flex;
+      flex-direction: column;
+      width: 95%;
+      margin: 2em auto;
+      .cc__movies_grid_category{
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        @include respond(mobileMax) {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        @include respond(mobileMin) {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        @include respond(table) {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+        @include respond(desktop) {
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+      }
+    }
+}

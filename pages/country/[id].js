@@ -61,7 +61,7 @@ const CategoryCountry = ({ country, genres }) => {
       setFetching(true)
       try {
         const { movies, pagination } = await fetchMoreMovies({
-          country: country.attributes.country_uid,
+          country: country.attributes.event_uid,
           genred: filter !== 'all_movies' ? filter : '',
           page,
           pageSize: 12
@@ -101,7 +101,7 @@ const CategoryCountry = ({ country, genres }) => {
       descriptionOg={`Sección de peliculas solo de ${country.attributes.name}`}
       typeOg='section.country'
       imageOg={country.attributes.banner.data.attributes.url}
-      urlOg={`/movie/${country.attributes.country_uid}`}
+      urlOg={`/movie/${country.attributes.event_uid}`}
     >
       <MainContent>
         <div className='cc__portada'>
@@ -185,37 +185,6 @@ const CategoryCountry = ({ country, genres }) => {
   )
 }
 
-// export async function getStaticPaths () {
-//   // When this is true (in preview environments) don't
-//   // prerender any static pages
-//   // (faster builds, but slower initial page load)
-//   // if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-//   //   return {
-//   //     paths: [],
-//   //     fallback: 'blocking'
-//   //   }
-//   // }
-
-//   // Call an external API endpoint to get countries
-//   const { data: countriesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/countries?populate=%2A`, {
-//     method: 'GET',
-//     headers: {
-//       Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
-//     }
-//   })
-//   const countriesData = countriesResponse.data
-
-//   // Get the paths we want to prerender based on posts
-//   // In production environments, prerender all pages
-//   // (slower builds, but faster initial page load)
-//   const paths = countriesData.map((country) => ({
-//     params: { id: country.attributes.country_uid }
-//   }))
-
-//   // { fallback: false } means other routes should 404
-//   return { paths, fallback: false }
-// }
-
 export async function getServerSideProps ({ params }) {
   const optionsFetchGenred = {
     method: 'GET',
@@ -231,7 +200,7 @@ export async function getServerSideProps ({ params }) {
     method: 'GET',
     params: {
       'populate[0]': 'banner',
-      'filters[country_uid][$eq]': params.id
+      'filters[event_uid][$eq]': params.id
     },
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`

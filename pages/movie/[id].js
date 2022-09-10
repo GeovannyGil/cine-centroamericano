@@ -154,7 +154,7 @@ export async function getServerSideProps ({ params }) {
       'populate[genreds][fields][0]': 'genred_uid',
       'populate[genreds][fields][1]': 'name',
       'populate[countries][fields][0]': 'name',
-      'populate[countries][fields][1]': 'country_uid'
+      'populate[countries][fields][1]': 'event_uid'
     }
   }
   try {

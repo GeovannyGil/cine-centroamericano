@@ -4,7 +4,7 @@ import Marquee from 'react-fast-marquee'
 import { BiPlay } from 'react-icons/bi'
 // import PropTypes from 'prop-types'
 
-export const Movie = ({ id, movieUid, title, imageUrl, priority = false }) => {
+export const Movie = ({ id, movieUid, title, imageUrl, priority = false, gradient = true }) => {
   return (
     // <Link href='/'>
     <div className='cc__movie'>
@@ -25,7 +25,7 @@ export const Movie = ({ id, movieUid, title, imageUrl, priority = false }) => {
       <div className='cc__contain-title-movie'>
         <Marquee
           className='marquee-text'
-          gradient
+          gradient={gradient}
           gradientWidth={10}
           speed={30}
           delay={2}

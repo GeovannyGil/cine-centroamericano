@@ -26,7 +26,7 @@ export async function fetchMoreMovies (parameters = {
     }
   }
   if (parameters.country !== '') {
-    optionsFetchMovies.params['filters[countries][country_uid][$eq]'] = parameters.country
+    optionsFetchMovies.params['filters[countries][event_uid][$eq]'] = parameters.country
   }
   if (parameters.genred !== '') {
     optionsFetchMovies.params['filters[genreds][genred_uid]​[$eq]'] = parameters.genred
@@ -67,4 +67,30 @@ export const formatOnlyMovies = (movies) => {
     }
   })
   return data
+}
+
+export async function searchMovie (parameters = {
+  query: '',
+  page: 1,
+  pageSize: 10
+}) {
+  const optionsFetchMovies = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN_API}`
+    },
+    params: {
+      'filters[title][$containsi]': parameters.query,
+      'fields[0]': 'title',
+      'fields[1]': 'movie_uid',
+      'populate[cover][fields][0]': 'url',
+      'pagination[page]': parameters.page,
+      'pagination[pageSize]': parameters.pageSize
+    }
+  }
+  const { data: moviesResponse } = await fetcher(`${process.env.NEXT_PUBLIC_URL_API}/movies`, optionsFetchMovies)
+  return {
+    movies: moviesResponse.data,
+    pagination: moviesResponse.meta.pagination
+  }
 }

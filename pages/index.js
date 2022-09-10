@@ -8,22 +8,18 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Country from '../components/commons/Country'
-// import axios from 'axios'
-// eslint-disable-next-line no-unused-vars
 import { fetcher, fetchMoreMovies, formatMovies, formatOnlyMovies } from '../libs'
 import { useCallback, useEffect, useState } from 'react'
 import { Spinner } from '../components/commons/Spinners'
 import InfiniteScroll from 'react-infinite-scroller'
-// import Image from 'next/image'
+// import Link from 'next/link'
 
 export default function Home ({ countries, movies, sliders }) {
   const moviesData = formatOnlyMovies(movies.data)
-  // const [moviesByCountries] = useState([])
   const [moviesByCountries, setMoviesByCountries] = useState([])
   const [lengthCountries, setLengthCountries] = useState(1)
   const [lengthLimit, setLengthLimit] = useState(true)
   const [fetching, setFetching] = useState(false)
-
   const GetMoreMoviesByCountries = useCallback(
     async () => {
       if (fetching) {
@@ -92,9 +88,35 @@ export default function Home ({ countries, movies, sliders }) {
             }
           >
             {
-              sliders.map(slider => (
-                <img src={slider.attributes.image.data.attributes.url} loading='lazy' alt={slider.attributes.title || `Slider No.${slider.id}`} key={slider.id} />
-              ))
+              sliders.map(slider => {
+                // if (slider.attributes.url_external !== null) {
+                //   console.log(slider.attributes.url_external)
+                //   return (
+                //     <a href={slider.attributes.url_external} key={slider.id} rel='noreferrer' target='_blank'>
+                //       <img src={slider.attributes.image.data.attributes.url} loading='lazy' alt={slider.attributes.title || `Slider No.${slider.id}`} />
+                //     </a>
+                //   )
+                // }
+                // if (slider.attributes.movie.data !== null) {
+                //   return (
+                //     <Link href={`/movie/${slider.attributes.movie.data.attributes.movie_uid}`} key={slider.id}>
+                //       <a>
+                //         <img src={slider.attributes.image.data.attributes.url} loading='lazy' alt={slider.attributes.title || `Slider No.${slider.id}`} />
+                //       </a>
+                //     </Link>
+                //   )
+                // }
+                // if (slider.attributes.event.data !== null) {
+                //   return (
+                //     <Link href={`/country/${slider.attributes.eveny.data.attributes.event_uid}`} key={slider.id}>
+                //       <a>
+                //         <img src={slider.attributes.image.data.attributes.url} loading='lazy' alt={slider.attributes.title || `Slider No.${slider.id}`} />
+                //       </a>
+                //     </Link>
+                //   )
+                // }
+                return (<img src={slider.attributes.image.data.attributes.url} loading='lazy' alt={slider.attributes.title || `Slider No.${slider.id}`} key={slider.id} />)
+              })
             }
           </Slider>
         </div>
@@ -268,7 +290,10 @@ export async function getServerSideProps (context) {
       params: {
         'fields[1]': 'title',
         'fields[2]': 'description',
-        'populate[image][fields][0]': 'url'
+        'fields[3]': 'url_external',
+        'populate[image][fields][0]': 'url',
+        'populate[movie][fields][0]​': 'movie_uid',
+        'populate[event][fields][0]​': 'event_uid'
       }
     }
     const optionsCountriMovies = {
@@ -279,7 +304,7 @@ export async function getServerSideProps (context) {
       params: {
         'fields[0]': 'name',
         'fields[1]': 'title',
-        'fields[2]': 'country_uid',
+        'fields[2]': 'event_uid',
         'populate[image][fields][0]': 'url'
       }
     }
@@ -305,7 +330,7 @@ export async function getServerSideProps (context) {
         id: country.id,
         name: country.attributes.name,
         title: country.attributes.title,
-        uid: country.attributes.country_uid,
+        uid: country.attributes.event_uid,
         image: country.attributes.image.data.attributes.url
       }
     })

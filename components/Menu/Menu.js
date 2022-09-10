@@ -18,7 +18,7 @@ const Menu = ({ isOpen, onChange }) => {
       params: {
         'fields[0]': 'name',
         'fields[1]': 'title',
-        'fields[2]': 'country_uid'
+        'fields[2]': 'event_uid'
       }
     }
     fetchCountries(optionsCountriMovies).then((countries) => {
@@ -39,7 +39,7 @@ const Menu = ({ isOpen, onChange }) => {
                 <ul className={styles.interior}>
                   {
                     countries.map((country) =>
-                      <li key={country.attributes.country_uid}><Link href={`/country/${country.attributes.country_uid}`}><a onClick={() => onChange(false)}>{country.attributes.title || country.attributes.name}</a></Link></li>
+                      <li key={country.attributes.event_uid}><Link href={`/country/${country.attributes.event_uid}`}><a onClick={() => onChange(false)}>{country.attributes.title || country.attributes.name}</a></Link></li>
                     )
                   }
                 </ul>
