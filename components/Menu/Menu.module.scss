@@ -86,7 +86,7 @@
         cursor: pointer;
 
         &::after {
-          content: '\025b8';
+          content: '\025be';
           color: vars.$primary-color;
           margin-right: 4px;
         }
@@ -95,7 +95,7 @@
 
     // MUESTRA EL ICONO ABIERTO
     input:checked~label:after {
-      content: '\025be';
+      content: '\025b4';
     }
 
     .interior {
